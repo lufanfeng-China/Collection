@@ -1,0 +1,266 @@
+﻿{
+    "sourceFile":  "C:\\Users\\Sky.Lu\\OneDrive - Thermo Fisher Scientific\\Desktop\\Discussion Summary.xlsx",
+    "syncedAt":  "2026-04-03T16:32:36",
+    "items":  [
+                  {
+                      "system":  "VAT",
+                      "changePoint":  "收款团队在VAT系统内直接申请开票",
+                      "remark":  "1.  Amy强调VAT团队需要进行税务合规性判断,如品名修改是否符合税率要求\n2.  品名不能随意变更(如A改成B再改成C),需要确保税务合规\n3.  拆分也有专业要求,如不能随意拆成小数(0.8和0.2)\n4.  技术上可以给收款团队开放权限自行操作\n5.  如果收款团队接手,需要具备基本的税务和开票知识\n6.  VAT团队的专业判断包括:确认是否符合税务要求、正确的税收编码等\n7.  工作量从一个团队转移到另一个团队,整体效率提升有限",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "取消",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付"
+                  },
+                  {
+                      "system":  "VAT",
+                      "changePoint":  "产品名称与官网同步",
+                      "remark":  "1. 药监局开票品名必须和备案过的品名一致\n2. 中英文维护在中文字段\n3. 有需要去掉英文的特殊需求\n4. VAT一定要有中文名称\n5. 官网有只有英文的情况（需要看一下具体的比例）\n6. 经过数据验证，官网SKU纯中文和混合  是有中文品名能用的  加起来有 18009个物料号，占总计需要中文品名物料号（107529）的16.7%",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "取消",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付"
+                  },
+                  {
+                      "system":  "VAT",
+                      "changePoint":  "发票行项目顺序调整",
+                      "remark":  "1. 需要评估客户需求的必要性和频率\n2. 票一通系统支持此功能\n3. 还要考虑匠领系统的变更",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付"
+                  },
+                  {
+                      "system":  "Credit",
+                      "changePoint":  "Credit端增加银行水单抓取能力",
+                      "remark":  "1.  一天多次定时同步\n2.  Share folder 去取抓AR同事手工维护的表格，进入Credit\n    - 客户抬头\n    - 金额\n    - 日期\n    - 付款摘要（备注）\n3.  需要Credit和Collection拉齐需求的理解",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "评估中",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "Credit",
+                      "changePoint":  "科研客户黑名单政策：从“默认解锁”评估调整为“默认锁定”",
+                      "remark":  "1. Academia客户系统中有十万家,黑名单客户不到0.3%\n2. 维持默认解锁评估政策,不调整为默认锁定\n3. 从效率角度考虑,99.7%的客户都是良好客户,不应为极少数问题客户影响整体效率",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "取消",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "企业微信",
+                      "changePoint":  "使用企业微信",
+                      "remark":  "1. 第一层：效率提升\n减少首次催收和重复提醒的人工作业\n减少简单问题人工响应\n减少手工记录和系统更新时间\n2. 第二层：流程升级\n沟通留痕自动化\n人机协同分层处理\n从个人经验驱动转为规则驱动\n3. 第三层：管理与合规\n客户资产公司化\n过程透明\n离职交接风险降低\n数据可追踪，可分析，可审计",
+                      "fte":  "1",
+                      "cost":  null,
+                      "status":  "评估中",
+                      "type":  "New",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "企业微信",
+                      "changePoint":  "企业微信 叠加AI自动化",
+                      "remark":  "自动同步企业微信内容，对接相关系统",
+                      "fte":  "2",
+                      "cost":  null,
+                      "status":  "评估中",
+                      "type":  "AI",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "Credit",
+                      "changePoint":  "补充customer层面付款习惯信息",
+                      "remark":  "1.  在Credit系统中新增字段,从AR Portal同步客户层面付款习惯信息\n2.  将Billing维度和客户习惯信息分开显示在两个独立表格中,便于查看\n3.  数据已在AR Portal中存在,只需增加显示字段",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "Credit",
+                      "changePoint":  "与Credit对齐收款团队跟进记录内容格式",
+                      "remark":  "1.  增加结构化的记录格式,前面部分用下拉选项记录季度底付款预期(能付/不能付/部分支付)\n2. 后面保留详细跟进记录供收款团队使用\n3.  通过规范化格式减少团队间重复沟通,便于后续dashboard分析",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "Credit",
+                      "changePoint":  "收款跟进记录实时更新至Credit解锁系统",
+                      "remark":  "AR Portal与Credit系统同步**\n1.  当前Airport与Credit系统每天晚上同步一次前一天数据\n2.  收款团队更新**AR Portal**后,Credit团队要等到第二天才能看到相关信息\n3.  计划调查实现实时或按需同步的可能性,减少信息延迟导致的重复询问",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "PCS",
+                      "changePoint":  "LSG 唯一一笔（一对一/一对多）系统自动认款，无需核销员点击确认",
+                      "remark":  "当系统只给出一个匹配方案(solution)时,准确率非常高,基本无误 。团队确认可以跳过人工确认环节,如果只有一个匹配建议且满足授权节点要求,系统可自动完成匹配 。技术上无问题,仅需确认授权流程 。",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待审批",
+                      "type":  "CR",
+                      "step":  "05 到账与核销"
+                  },
+                  {
+                      "system":  "PCS",
+                      "changePoint":  "增加智能排序与优先级判断",
+                      "remark":  "1.  为匹配建议添加优先级标记(HIGH/MIDDLE/LOW)\n2.  通过历史数据验证,如果HIGH优先级匹配准确率达到90-95%以上,可实现自动匹配\n3. 利用AI技术分析客户历史收款记录(半年内),总结收款逻辑并自动生成定制化匹配规则\n4.  系统可在闲暇时间(如周末)批量处理匹配逻辑生成,定期更新(每半年或2-3个月滚动更新)\n5. 优先从关键客户(经常无法一对一匹配的客户)开始实施",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "AI",
+                      "step":  "05 到账与核销"
+                  },
+                  {
+                      "system":  "PCS",
+                      "changePoint":  "核销专员未认款转给收款员并生成任务",
+                      "remark":  "1.  在系统中增加任务模块,集中显示需要收款员处理的待办事项\n2.  支持核销员或收款员之间互相cue任务,明确标记任务分配对象\n3.  解决当前虽能看到所有未核销款项,但无法快速筛选被分配任务的问题\n4.  记录任务历史,避免信息丢失,方便后续追溯",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "05 到账与核销"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "结构化填写催收跟进记录",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "梳理电话催收内容并形成结构化模板/字段",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "PIP留痕：新增邮箱需客户验证，确认邮箱被指定系统使用",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "03 对账与争议处理"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "AR Portal发信功能/模板拓展优化",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "全周期管理、自动生成对账单、跨系统取数并生成客户格式",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  },
+                  {
+                      "system":  "三方平台",
+                      "changePoint":  "客户平台订单状态返还至AR Portal",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付"
+                  },
+                  {
+                      "system":  "三方平台",
+                      "changePoint":  "锐竞平台电子章功能",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待审批",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付"
+                  },
+                  {
+                      "system":  "三方平台",
+                      "changePoint":  "RPA/自动化工具用于主要客户平台操作（金士烈/百望云/耀明康德/三生）",
+                      "remark":  null,
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "评估中",
+                      "type":  "RPA",
+                      "step":  "02 开票与其他支持材料交付"
+                  },
+                  {
+                      "system":  "三方平台",
+                      "changePoint":  "第三方客户平台供应商沟通API接口或RPA自动化方案（方圆/库巴扎/瑞金",
+                      "remark":  "1. 方元 - 开发费2万\n2. 库巴扎 - 一次性对接费5万，日常数据服务费是销售额的0.5%。累计销售额满1000万后返2万对接费。\n3. 锐竞 - 一次性开发费\n4. 喀斯玛 - 一次性开发费",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待审批",
+                      "type":  "API",
+                      "step":  "02 开票与其他支持材料交付"
+                  },
+                  {
+                      "system":  "PCS",
+                      "changePoint":  "三方代付申请完，自动流转到认款核销部分（LSG+CTC）",
+                      "remark":  "当前三方代付审核通过后,还需要手动回到认款页面提交认款,希望实现审核通过后自动流转到认款完成   。三方代付申请时已包含所有必要信息(进账编号、金额等),系统应能自动触发认款流程 。类似功能在LSG系统也存在相同问题 。",
+                      "fte":  "？",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "05 到账与核销"
+                  },
+                  {
+                      "system":  "MDM",
+                      "changePoint":  "MDM增加科研客户特征字段，实现自动判断",
+                      "remark":  "1. 校验内容\n     收票邮箱地址 \n     收票人姓名\n     收票人地址\n     收票人手机号码\n2. 科研客户的判断标准： 财务黑名单 - 这个黑名单需要有更新的能力（不管是Collection自己做还是找业务owner）\n3.  校验的对象： E1的BT对象\n4.  财务会提供一个AP portal里的已有邮箱清单，在做收票邮箱地址的时候，也要检查这个清单。（这个清单也要可维护）\n5.  把校验结果放在现有的财务审批节点，如下图的黑名单客户判定区域，增加：\n    收票邮箱地址重复检验： Yes\n    收票人姓名重复检验：No\n    收票人地址重复校验：No\n    收票人手机号码重复检验：No",
+                      "fte":  "？",
+                      "cost":  "33000",
+                      "status":  "待审批",
+                      "type":  "CR",
+                      "step":  "01 准备与客户主数据"
+                  },
+                  {
+                      "system":  "New",
+                      "changePoint":  "销售统一提交客户信息变更的界面/小程序",
+                      "remark":  "1. 联系人信息变更（BT或SO层面）\n    - 联系人邮箱\n    - 联系人电话\n    - 联系人姓名\n    - 文件接收地址\n2. 开票规则变更\n    - 暂停开票\n    - 发票类型变化\n    - 特殊开票要求更新\n        - 拆分\n        - 合并\n        - 开票时间要求\n3. 退票需求\n4. 客户开票抬头的更名（现在是通过邮件，微信直接由销售联系财务同事）：\n    - 名字\n    - 地址\n    - 银行\n    - 电话\n    \n    保证税号不变的情况下，如果有变化走新客户MDM流程",
+                      "fte":  "0.16",
+                      "cost":  null,
+                      "status":  "待评估",
+                      "type":  "AI",
+                      "step":  "01 准备与客户主数据"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  " HK \u0026 AB service 整合进AR Portal",
+                      "remark":  "•\t收款计划管理\n•\t客户对账配置管理，对账文件要求，账单要求，对账要求，提醒设置等\n•\t客户对账单制作和发送,。目前，85%标准对账单(邮件发送平台) ，15%手工处理 非标对账单。未来系统根据客户的要求，自动按要求生成对账单。\n•\t对账文件管理\n•\t收款跟进状态管理(Billing维度)\n•\t对账客户认证和授权",
+                      "fte":  null,
+                      "cost":  null,
+                      "status":  "待评估",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理"
+                  }
+              ]
+}

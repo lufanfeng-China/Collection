@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Execution Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero slide">
+        <div class="hero-copy">
+          <h1 id="project-name">Collection Optimization Leverage AI/Automation</h1>
+          <p class="hero-summary" id="project-summary"></p>
+          <div class="hero-meta">
+            <div>
+              <span class="meta-label">Project Timeline</span>
+              <strong id="project-duration"></strong>
+            </div>
+            <div>
+              <span class="meta-label">Current Phase</span>
+              <strong id="project-stage"></strong>
+            </div>
+            <div>
+              <span class="meta-label">Owner</span>
+              <strong id="project-owner"></strong>
+            </div>
+            <div>
+              <span class="meta-label">Delivery Health</span>
+              <strong id="health-score"></strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-progress">
+          <div class="hero-orbit-panel">
+            <div class="progress-orbit">
+              <div class="orbit-ring"></div>
+              <div class="orbit-core">
+                <span>Overall Progress</span>
+                <strong id="overall-progress">0%</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="section business-slide slide">
+          <div>
+            <div class="section-head">
+              <h2><span class="title-line">Business Current Status</span></h2>
+              <p>Current FTE allocation by business step and service line, based on the latest workload snapshot.</p>
+            </div>
+            <div class="business-table-shell">
+              <table class="business-table" id="business-table">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="business-aside">
+            <article class="overview-panel">
+              <span class="meta-label">Total FTE</span>
+              <strong id="business-total-fte"></strong>
+              <p id="business-total-note"></p>
+            </article>
+            <article class="overview-panel">
+              <span class="meta-label">Highest Load Step</span>
+              <strong id="business-top-step"></strong>
+              <p id="business-top-step-note"></p>
+            </article>
+            <article class="overview-panel">
+              <span class="meta-label">Largest Service Line</span>
+              <strong id="business-top-service"></strong>
+              <p id="business-top-service-note"></p>
+            </article>
+          </aside>
+        </section>
+
+        <section class="section slide">
+          <div class="toolbar">
+            <div class="toolbar-group">
+              <span class="toolbar-label">Improvement Filters</span>
+              <div class="chip-group action-filter-group">
+                <select id="action-system-filter" class="toolbar-select">
+                  <option value="all">All Systems</option>
+                </select>
+                <select id="action-step-filter" class="toolbar-select">
+                  <option value="all">All Steps</option>
+                </select>
+                <select id="action-status-filter" class="toolbar-select">
+                  <option value="all">All Statuses</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <h2>Identified Improvement Points</h2>
+            <p>Current change opportunities summarized from the workbook action sheet, organized as one card per item.</p>
+          </div>
+          <div class="action-card-grid" id="action-card-grid"></div>
+        </section>
+
+        <section class="section slide">
+          <div class="toolbar">
+            <div class="toolbar-group">
+              <span class="toolbar-label">Time Range</span>
+              <div class="chip-group" id="range-chips"></div>
+            </div>
+            <div class="toolbar-group">
+              <label class="toolbar-label" for="owner-filter">Owner Filter</label>
+              <select id="owner-filter" class="toolbar-select">
+                <option value="all">All</option>
+              </select>
+            </div>
+            <div class="toolbar-group toolbar-actions">
+              <span class="toolbar-label">Data Actions</span>
+              <div class="chip-group action-chips">
+                <label class="chip-button chip-file" for="data-file">Import JSON</label>
+                <input id="data-file" type="file" accept=".json,application/json" hidden />
+                <button type="button" class="chip-button" id="toggle-presenter">Presenter Mode</button>
+                <button type="button" class="chip-button" id="export-data">Export Data</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-banner" id="status-banner">
+            The dashboard is currently using the built-in sample dataset. Import your own JSON file to replace the content.
+          </div>
+
+          <div class="section-head">
+            <h2>Key Metrics</h2>
+            <p>Quickly assess delivery progress, resource pressure, and current risk posture.</p>
+          </div>
+          <div class="metric-grid" id="metric-grid"></div>
+        </section>
+
+        <section class="section split-section slide">
+          <div>
+            <div class="section-head">
+              <h2>Execution Trend</h2>
+              <p>Compare planned versus actual progress and track issue volume over time.</p>
+            </div>
+            <div class="chart-card">
+              <canvas id="trend-chart" aria-label="Execution trend chart"></canvas>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-head">
+              <h2>Project Snapshot</h2>
+              <p>Condense phases, risks, and task status into a more scannable summary.</p>
+            </div>
+            <div class="overview-stack">
+              <article class="overview-panel">
+                <span class="meta-label">Phase Status</span>
+                <strong id="phase-highlight"></strong>
+                <p id="phase-highlight-note"></p>
+              </article>
+              <article class="overview-panel">
+                <span class="meta-label">Current Focus</span>
+                <strong id="focus-highlight"></strong>
+                <p id="focus-highlight-note"></p>
+              </article>
+              <article class="overview-panel">
+                <span class="meta-label">Delivery Pace</span>
+                <strong id="pace-highlight"></strong>
+                <p id="pace-highlight-note"></p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section split-section slide">
+          <div>
+            <div class="section-head">
+              <h2>Phase Progress</h2>
+              <p>Review completion by execution phase and spot bottlenecks quickly.</p>
+            </div>
+            <div class="phase-list" id="phase-list"></div>
+          </div>
+
+          <div>
+            <div class="section-head">
+              <h2>Milestone Timeline</h2>
+              <p>Show major checkpoints, completion status, and the next planned steps.</p>
+            </div>
+            <div class="timeline" id="timeline"></div>
+          </div>
+        </section>
+
+        <section class="section split-section">
+          <div>
+            <div class="section-head">
+              <h2>Task Distribution</h2>
+              <p>Track execution coverage and follow-up intensity by owner and status.</p>
+            </div>
+            <div class="task-board" id="task-board"></div>
+          </div>
+
+          <div>
+            <div class="section-head">
+              <h2>Risks and Actions</h2>
+              <p>Focus attention on the items that matter most for leadership review.</p>
+            </div>
+            <div class="risk-list" id="risk-list"></div>
+            <div class="action-list" id="action-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="action-modal" hidden>
+      <div class="modal-panel">
+        <div class="section-head modal-head">
+          <h2 id="modal-title">Linked Actions</h2>
+          <button type="button" class="chip-button" id="modal-close">Close</button>
+        </div>
+        <div class="action-card-grid" id="modal-card-grid"></div>
+      </div>
+    </div>
+
+    <script src="./action-summary-data.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

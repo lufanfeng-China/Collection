@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discussion Summary Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <section class="section">
+        <div class="section-head">
+          <h2 id="detail-title">Discussion Summary</h2>
+          <p id="detail-subtitle">Detail view</p>
+        </div>
+        <div class="overview-stack">
+          <article class="overview-panel">
+            <span class="meta-label">Matched Step</span>
+            <strong id="detail-step"></strong>
+            <p id="detail-count"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Matched Items</h2>
+          <p>Rows are matched by the business step and the workbook field <code>L1阶段</code>.</p>
+        </div>
+        <div class="detail-grid" id="detail-list"></div>
+      </section>
+    </div>
+
+    <script src="./discussion-summary-data.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const step = params.get("step") || "";
+      const groups = window.DISCUSSION_SUMMARY?.groups || [];
+      const match = groups.find((group) => group.l1 === step);
+      const items = match?.items || [];
+
+      function formatFte(value) {
+        const num = Number(value);
+        if (!Number.isFinite(num)) {
+          return "-";
+        }
+        return num.toFixed(2).replace(/\.00$/, "");
+      }
+
+      function formatParagraphText(text) {
+        if (!text) {
+          return "<p>-</p>";
+        }
+
+        const normalized = String(text).replace(/\r/g, "\n").trim();
+        const numberedParts = normalized
+          .replace(/\n+/g, "\n")
+          .split(/(?=(?:^|\n|\s)\d+\.\s)/)
+          .map((part) => part.trim())
+          .filter(Boolean);
+
+        if (numberedParts.length > 1) {
+          return `<div class="detail-list-block">${numberedParts.map((part) => `<p>${part}</p>`).join("")}</div>`;
+        }
+
+        const lineParts = normalized
+          .split("\n")
+          .map((part) => part.trim())
+          .filter(Boolean);
+
+        if (lineParts.length > 1) {
+          return `<div class="detail-list-block">${lineParts.map((part) => `<p>${part}</p>`).join("")}</div>`;
+        }
+
+        return `<p>${normalized}</p>`;
+      }
+
+      document.getElementById("detail-title").textContent = step || "Discussion Summary";
+      document.getElementById("detail-subtitle").textContent = "Business current status detail";
+      document.getElementById("detail-step").textContent = step || "No step selected";
+      document.getElementById("detail-count").textContent = `${items.length} matched row(s) from the workbook.`;
+      const list = document.getElementById("detail-list");
+      if (!items.length) {
+        const empty = document.createElement("article");
+        empty.className = "overview-panel";
+        empty.innerHTML = "<strong>No matched data</strong><p>No workbook rows were matched for this step.</p>";
+        list.appendChild(empty);
+      } else {
+        items.forEach((item) => {
+          const card = document.createElement("article");
+          card.className = "phase-item";
+          card.innerHTML = `
+            <header>
+              <h3>${item.l3 || item.l2 || item.stepId}</h3>
+              <span class="detail-fte">${formatFte(item.total)} FTE</span>
+            </header>
+            <p><strong>Step ID:</strong> ${item.stepId || "-"}</p>
+            <p><strong>L2:</strong> ${item.l2 || "-"}</p>
+            <div><strong>Step Description:</strong>${formatParagraphText(item.stepDescription)}</div>
+            <div><strong>ITSC Opportunity:</strong>${formatParagraphText(item.itscOpportunity)}</div>
+          `;
+          list.appendChild(card);
+        });
+      }
+    </script>
+  </body>
+</html>

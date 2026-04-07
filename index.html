@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,6 +14,86 @@
   </head>
   <body>
     <div class="page-shell">
+      <section class="section executive-slide executive-slide-alt slide">
+        <div class="executive-head executive-head-alt">
+          <div class="executive-title-wrap">
+            <span class="executive-chip"><span class="mini-icon mini-icon-chip"></span>Draft for Review</span>
+            <h1 class="executive-title">2026–2027 Accounting Cost Reduction Plan</h1>
+            <p class="executive-subtitle">This plan aims to reduce Accounting operating cost through a combination of GBS migration and AI/Automation-led process optimization across AP/AR, GL, Collection and Invoicing.</p>
+          </div>
+        </div>
+
+        <div class="executive-metric-row executive-metric-row-alt">
+          <article class="executive-metric executive-metric-blue">
+            <span class="executive-label"><span class="mini-icon mini-icon-savings"></span>Savings Potential</span>
+            <strong>$0.38M–1.26M</strong>
+            <p>Low case without GBS: $383.8K <br />High case with GBS: $1.26M</p>
+          </article>
+          <article class="executive-metric executive-metric-green">
+            <span class="executive-label"><span class="mini-icon mini-icon-roi"></span>Investment & Return</span>
+            <strong>$250K / 1.2–2.0 yrs</strong>
+            <p>AI & Automation investment: $250K <br />ROI range: 1.2 to 2.0 years</p>
+          </article>
+          <article class="executive-metric executive-metric-teal">
+            <span class="executive-label"><span class="mini-icon mini-icon-tech"></span>Impact Application</span>
+            <strong>5 + 3</strong>
+            <p>Existing: PCS / VAT / AR Portal / MDM / Credit<br />New: Enterprise WeChat / AI / RPA</p>
+          </article>
+        </div>
+
+        <div class="rollout-panel">
+          <div class="rollout-grid">
+            <article class="rollout-card rollout-card-blue">
+              <h3><span class="mini-icon mini-icon-blue"></span>1. AP / AR</h3>
+              <p class="rollout-meta">Kickoff: Apr 2026 &nbsp; | &nbsp; Existed Cost: $1,460K &nbsp; | &nbsp; Saving Target: $535K</p>
+              <div class="rollout-body">
+                <span>Actions:</span>
+                <p>Total HC 34, convert the AP/AR team to the GBS model; keep 8 HC in Shanghai and move 24 HC to GBS (plus 1 HC in RT).</p>
+              </div>
+              <div class="rollout-body">
+                <span>Note:</span>
+                <p>$20K / HC or 50% of China Cost, 9 months transition cycle</p>
+              </div>
+            </article>
+
+            <article class="rollout-card rollout-card-teal">
+              <h3><span class="mini-icon mini-icon-teal"></span>2. Collection</h3>
+              <p class="rollout-meta">Kickoff: Jul 2026 &nbsp; | &nbsp; Existed Cost: $1,570K &nbsp; | &nbsp; Saving Target: $314K</p>
+              <div class="rollout-body">
+                <span>Actions:</span>
+                <p>Total HC 36, deliver around 20% savings through AI/Automation-enabled productivity improvement.</p>
+              </div>
+              <div class="rollout-body">
+                <span>Note:</span>
+                <p>Detailed scope to be identified.</p>
+              </div>
+            </article>
+
+            <article class="rollout-card rollout-card-green">
+              <h3><span class="mini-icon mini-icon-green"></span>3. GL</h3>
+              <p class="rollout-meta">Kickoff: Sep 2026 &nbsp; | &nbsp; Existed Cost: $1,923K &nbsp; | &nbsp; Saving Target: $341K</p>
+              <div class="rollout-body">
+                <span>Actions:</span>
+                <p>Total HC 28, convert part of the GL team to the GBS model after process mapping and operating-model validation.</p>
+              </div>
+            </article>
+
+            <article class="rollout-card rollout-card-orange">
+              <h3><span class="mini-icon mini-icon-orange"></span>4. Invoicing</h3>
+              <p class="rollout-meta">Kickoff: May 2026 &nbsp; | &nbsp; Existed Cost: $398K &nbsp; | &nbsp; Saving Target: $70K</p>
+              <div class="rollout-body">
+                <span>Actions:</span>
+                <p>Total HC 9, leverage AI/Automation to improve invoicing efficiency by about 20%.</p>
+              </div>
+              <div class="rollout-body">
+                <span>Note:</span>
+                <p>Keeping local execution for compliance</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <header class="hero slide">
         <div class="hero-copy">
           <h1 id="project-name">Collection Optimization Leverage AI/Automation</h1>
@@ -30,10 +110,6 @@
             <div>
               <span class="meta-label">Owner</span>
               <strong id="project-owner"></strong>
-            </div>
-            <div>
-              <span class="meta-label">Delivery Health</span>
-              <strong id="health-score"></strong>
             </div>
           </div>
         </div>
@@ -67,20 +143,36 @@
           </div>
 
           <aside class="business-aside">
-            <article class="overview-panel">
+            <article class="action-summary-metric">
               <span class="meta-label">Total FTE</span>
-              <strong id="business-total-fte"></strong>
-              <p id="business-total-note"></p>
+              <strong id="business-total-fte">0.000</strong>
             </article>
-            <article class="overview-panel">
-              <span class="meta-label">Highest Load Step</span>
-              <strong id="business-top-step"></strong>
-              <p id="business-top-step-note"></p>
+            <article class="action-summary-metric">
+              <span class="meta-label">Target FTE</span>
+              <strong id="business-target-fte">0.000</strong>
+              <p>20% of Total FTE</p>
             </article>
-            <article class="overview-panel">
-              <span class="meta-label">Largest Service Line</span>
-              <strong id="business-top-service"></strong>
-              <p id="business-top-service-note"></p>
+            <article class="action-summary-metric">
+              <span class="meta-label">FCST FTE</span>
+              <strong id="business-fcst-fte">0.000</strong>
+              <div class="fcst-list">
+                <div class="fcst-row">
+                  <span>评估中</span>
+                  <strong id="business-fcst-assessment">0.000</strong>
+                </div>
+                <div class="fcst-row">
+                  <span>待审批</span>
+                  <strong id="business-fcst-approval">0.000</strong>
+                </div>
+                <div class="fcst-row">
+                  <span>已审批</span>
+                  <strong id="business-fcst-approved">0.000</strong>
+                </div>
+                <div class="fcst-row">
+                  <span>待报价</span>
+                  <strong id="business-fcst-quote">0.000</strong>
+                </div>
+              </div>
             </article>
           </aside>
         </section>
@@ -99,125 +191,21 @@
                 <select id="action-status-filter" class="toolbar-select">
                   <option value="all">All Statuses</option>
                 </select>
+                <select id="action-type-filter" class="toolbar-select">
+                  <option value="all">All Types</option>
+                </select>
               </div>
             </div>
           </div>
 
-          <div class="section-head">
-            <h2>Identified Improvement Points</h2>
-            <p>Current change opportunities summarized from the workbook action sheet, organized as one card per item.</p>
-          </div>
-          <div class="action-card-grid" id="action-card-grid"></div>
-        </section>
-
-        <section class="section slide">
-          <div class="toolbar">
-            <div class="toolbar-group">
-              <span class="toolbar-label">Time Range</span>
-              <div class="chip-group" id="range-chips"></div>
-            </div>
-            <div class="toolbar-group">
-              <label class="toolbar-label" for="owner-filter">Owner Filter</label>
-              <select id="owner-filter" class="toolbar-select">
-                <option value="all">All</option>
-              </select>
-            </div>
-            <div class="toolbar-group toolbar-actions">
-              <span class="toolbar-label">Data Actions</span>
-              <div class="chip-group action-chips">
-                <label class="chip-button chip-file" for="data-file">Import JSON</label>
-                <input id="data-file" type="file" accept=".json,application/json" hidden />
-                <button type="button" class="chip-button" id="toggle-presenter">Presenter Mode</button>
-                <button type="button" class="chip-button" id="export-data">Export Data</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="status-banner" id="status-banner">
-            The dashboard is currently using the built-in sample dataset. Import your own JSON file to replace the content.
-          </div>
-
-          <div class="section-head">
-            <h2>Key Metrics</h2>
-            <p>Quickly assess delivery progress, resource pressure, and current risk posture.</p>
-          </div>
-          <div class="metric-grid" id="metric-grid"></div>
-        </section>
-
-        <section class="section split-section slide">
-          <div>
             <div class="section-head">
-              <h2>Execution Trend</h2>
-              <p>Compare planned versus actual progress and track issue volume over time.</p>
+              <h2>Identified Improvement Points</h2>
+              <p>Current change opportunities summarized from the workbook action sheet, organized as one card per item.</p>
             </div>
-            <div class="chart-card">
-              <canvas id="trend-chart" aria-label="Execution trend chart"></canvas>
-            </div>
-          </div>
-
-          <div>
-            <div class="section-head">
-              <h2>Project Snapshot</h2>
-              <p>Condense phases, risks, and task status into a more scannable summary.</p>
-            </div>
-            <div class="overview-stack">
-              <article class="overview-panel">
-                <span class="meta-label">Phase Status</span>
-                <strong id="phase-highlight"></strong>
-                <p id="phase-highlight-note"></p>
-              </article>
-              <article class="overview-panel">
-                <span class="meta-label">Current Focus</span>
-                <strong id="focus-highlight"></strong>
-                <p id="focus-highlight-note"></p>
-              </article>
-              <article class="overview-panel">
-                <span class="meta-label">Delivery Pace</span>
-                <strong id="pace-highlight"></strong>
-                <p id="pace-highlight-note"></p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section split-section slide">
-          <div>
-            <div class="section-head">
-              <h2>Phase Progress</h2>
-              <p>Review completion by execution phase and spot bottlenecks quickly.</p>
-            </div>
-            <div class="phase-list" id="phase-list"></div>
-          </div>
-
-          <div>
-            <div class="section-head">
-              <h2>Milestone Timeline</h2>
-              <p>Show major checkpoints, completion status, and the next planned steps.</p>
-            </div>
-            <div class="timeline" id="timeline"></div>
-          </div>
-        </section>
-
-        <section class="section split-section">
-          <div>
-            <div class="section-head">
-              <h2>Task Distribution</h2>
-              <p>Track execution coverage and follow-up intensity by owner and status.</p>
-            </div>
-            <div class="task-board" id="task-board"></div>
-          </div>
-
-          <div>
-            <div class="section-head">
-              <h2>Risks and Actions</h2>
-              <p>Focus attention on the items that matter most for leadership review.</p>
-            </div>
-            <div class="risk-list" id="risk-list"></div>
-            <div class="action-list" id="action-list"></div>
-          </div>
-        </section>
-      </main>
-    </div>
+            <div class="action-card-grid" id="action-card-grid"></div>
+          </section>
+        </main>
+      </div>
 
     <div class="modal-backdrop" id="action-modal" hidden>
       <div class="modal-panel">
@@ -229,7 +217,28 @@
       </div>
     </div>
 
+    <div class="modal-backdrop" id="service-modal" hidden>
+      <div class="modal-panel">
+        <div class="section-head modal-head">
+          <h2 id="service-modal-title">Service Distribution</h2>
+          <button type="button" class="chip-button" id="service-modal-close">Close</button>
+        </div>
+        <div class="overview-stack">
+          <article class="overview-panel">
+            <span class="meta-label">Selected Service Line</span>
+            <strong id="service-modal-service"></strong>
+            <p id="service-modal-summary"></p>
+          </article>
+        </div>
+        <div class="chart-card">
+          <canvas id="service-chart" aria-label="Service line distribution chart"></canvas>
+        </div>
+      </div>
+    </div>
+
     <script src="./action-summary-data.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
+
+

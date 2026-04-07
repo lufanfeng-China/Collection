@@ -1,13 +1,13 @@
-const defaultDashboardData = {
+﻿const defaultDashboardData = {
   name: "Collection Optimization Leverage AI/Automation",
   summary:
     "The program is focused on collection workflow optimization, cross-team automation enablement, and rollout readiness. Overall momentum is stable, with the main constraints concentrated around integration bandwidth and stakeholder sign-off.",
   duration: "2026.02.01 - 2026.06.30",
-  stage: "Integration and UAT Readiness",
-  owner: "PMO / Ethan Zhang",
-  progress: 78,
+  stage: "Assessment",
+  owner: "Heather Sun",
+  progress: 20,
   health: {
-    score: "B+",
+    score: "-",
     note: "The critical path is moving on plan, but the UAT window is compressed. Key business and testing resources should be locked in early.",
   },
   metrics: [
@@ -100,12 +100,16 @@ const state = {
   actionSystem: "all",
   actionStep: "all",
   actionStatus: "all",
+  actionType: "all",
 };
 
 let dashboardData = structuredClone(defaultDashboardData);
 
 function setText(id, value) {
-  document.getElementById(id).textContent = value;
+  const element = document.getElementById(id);
+  if (element) {
+    element.textContent = value;
+  }
 }
 
 function setBanner(message, tone = "default") {
@@ -174,6 +178,32 @@ function toNumeric(value) {
   return Number.parseFloat(value) || 0;
 }
 
+function formatFteValue(value) {
+  if (value === "-" || value === "" || value == null) {
+    return "-";
+  }
+
+  const num = Number(value);
+  if (!Number.isFinite(num)) {
+    return value;
+  }
+
+  return num.toFixed(3);
+}
+
+function formatCostValue(value) {
+  if (value === "-" || value === "" || value == null) {
+    return "-";
+  }
+
+  const num = Number(value);
+  if (!Number.isFinite(num)) {
+    return value;
+  }
+
+  return `￥${num.toLocaleString("en-US")}`;
+}
+
 function renderBusinessStatus(businessStatus) {
   const table = document.getElementById("business-table");
   const thead = table.querySelector("thead");
@@ -181,7 +211,13 @@ function renderBusinessStatus(businessStatus) {
 
   thead.innerHTML = `
     <tr>
-      ${businessStatus.columns.map((column) => `<th>${column}</th>`).join("")}
+      ${businessStatus.columns
+        .map((column, index) =>
+          index === 0
+            ? `<th>${column}</th>`
+            : `<th><button type="button" class="service-header-button" data-service="${column}">${column}</button></th>`
+        )
+        .join("")}
     </tr>
   `;
 
@@ -220,35 +256,42 @@ function renderBusinessStatus(businessStatus) {
 
   const totalFte = businessStatus.totals
     .slice(1)
-    .reduce((sum, value) => sum + toNumeric(value), 0)
-    .toFixed(2);
+    .reduce((sum, value) => sum + toNumeric(value), 0);
 
-  const topStep = businessStatus.rows
-    .map((row) => ({
-      name: row[0],
-      total: row.slice(1).reduce((sum, value) => sum + toNumeric(value), 0),
-    }))
-    .sort((a, b) => b.total - a.total)[0];
+  const actionItems = window.ACTION_SUMMARY?.items || [];
+  const targetFte = totalFte * 0.2;
+  const assessmentFte = actionItems
+    .filter((item) => item.status === "评估中")
+    .reduce((sum, item) => sum + toNumeric(item.fte), 0);
+  const approvalFte = actionItems
+    .filter((item) => item.status === "待审批")
+    .reduce((sum, item) => sum + toNumeric(item.fte), 0);
+  const approvedFte = actionItems
+    .filter((item) => item.status === "已审批")
+    .reduce((sum, item) => sum + toNumeric(item.fte), 0);
+  const quoteFte = actionItems
+    .filter((item) => item.status === "待报价")
+    .reduce((sum, item) => sum + toNumeric(item.fte), 0);
+  const fcstFte = assessmentFte + approvalFte + approvedFte + quoteFte;
 
-  const topService = businessStatus.columns
-    .slice(1)
-    .map((column, index) => ({
-      name: column,
-      total: toNumeric(businessStatus.totals[index + 1]),
-    }))
-    .sort((a, b) => b.total - a.total)[0];
-
-  setText("business-total-fte", totalFte);
-  setText("business-total-note", "Combined workload across all listed service lines in the current view.");
-  setText("business-top-step", `${topStep.name}`);
-  setText("business-top-step-note", `${topStep.total.toFixed(2)} FTE, representing the heaviest operational concentration.`);
-  setText("business-top-service", `${topService.name}`);
-  setText("business-top-service-note", `${topService.total.toFixed(2)} FTE currently sits in this service line.`);
+  setText("business-total-fte", formatFteValue(totalFte));
+  setText("business-target-fte", formatFteValue(targetFte));
+  setText("business-fcst-fte", formatFteValue(fcstFte));
+  setText("business-fcst-assessment", formatFteValue(assessmentFte));
+  setText("business-fcst-approval", formatFteValue(approvalFte));
+  setText("business-fcst-approved", formatFteValue(approvedFte));
+  setText("business-fcst-quote", formatFteValue(quoteFte));
 
   tbody.querySelectorAll(".step-action-link").forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
       openActionModal(link.dataset.step);
+    });
+  });
+
+  thead.querySelectorAll(".service-header-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      openServiceModal(button.dataset.service, businessStatus);
     });
   });
 }
@@ -257,9 +300,11 @@ function renderActionFilters(items) {
   const systemSelect = document.getElementById("action-system-filter");
   const stepSelect = document.getElementById("action-step-filter");
   const statusSelect = document.getElementById("action-status-filter");
+  const typeSelect = document.getElementById("action-type-filter");
   const systems = ["all", ...new Set(items.map((item) => item.system).filter(Boolean))];
   const steps = ["all", ...new Set(items.map((item) => item.step).filter(Boolean))];
   const statuses = ["all", ...new Set(items.map((item) => item.status).filter(Boolean))];
+  const types = ["all", ...new Set(items.map((item) => item.type).filter(Boolean))];
 
   systemSelect.innerHTML = systems
     .map((system) => `<option value="${system}">${system === "all" ? "All Systems" : system}</option>`)
@@ -267,6 +312,9 @@ function renderActionFilters(items) {
   stepSelect.innerHTML = steps.map((step) => `<option value="${step}">${step === "all" ? "All Steps" : step}</option>`).join("");
   statusSelect.innerHTML = statuses
     .map((status) => `<option value="${status}">${status === "all" ? "All Statuses" : status}</option>`)
+    .join("");
+  typeSelect.innerHTML = types
+    .map((type) => `<option value="${type}">${type === "all" ? "All Types" : type}</option>`)
     .join("");
 
   if (!systems.includes(state.actionSystem)) {
@@ -278,10 +326,14 @@ function renderActionFilters(items) {
   if (!statuses.includes(state.actionStatus)) {
     state.actionStatus = "all";
   }
+  if (!types.includes(state.actionType)) {
+    state.actionType = "all";
+  }
 
   systemSelect.value = state.actionSystem;
   stepSelect.value = state.actionStep;
   statusSelect.value = state.actionStatus;
+  typeSelect.value = state.actionType;
 
   systemSelect.onchange = (event) => {
     state.actionSystem = event.target.value;
@@ -295,6 +347,10 @@ function renderActionFilters(items) {
     state.actionStatus = event.target.value;
     renderDashboard();
   };
+  typeSelect.onchange = (event) => {
+    state.actionType = event.target.value;
+    renderDashboard();
+  };
 }
 
 function renderActionCards() {
@@ -306,14 +362,15 @@ function renderActionCards() {
     const systemMatch = state.actionSystem === "all" || item.system === state.actionSystem;
     const stepMatch = state.actionStep === "all" || item.step === state.actionStep;
     const statusMatch = state.actionStatus === "all" || item.status === state.actionStatus;
-    return systemMatch && stepMatch && statusMatch;
+    const typeMatch = state.actionType === "all" || item.type === state.actionType;
+    return systemMatch && stepMatch && statusMatch && typeMatch;
   });
 
   grid.innerHTML = "";
 
   if (!filtered.length) {
-    grid.innerHTML = `
-      <article class="overview-panel">
+      grid.innerHTML = `
+        <article class="overview-panel">
         <strong>No matched improvement points</strong>
         <p>Try another system or status filter.</p>
       </article>
@@ -325,7 +382,7 @@ function renderActionCards() {
     const card = document.createElement("article");
     card.className = "action-summary-card";
     const remarkLines = formatStructuredLines(item.remark);
-    const tone = item.status === "取消" ? "danger" : item.status === "待报价" || item.status === "待审批" ? "warn" : "good";
+    const tone = item.status === "å–æ¶ˆ" ? "danger" : item.status === "å¾…æŠ¥ä»·" || item.status === "å¾…å®¡æ‰¹" ? "warn" : "good";
     card.dataset.tone = tone;
 
     card.innerHTML = `
@@ -337,11 +394,11 @@ function renderActionCards() {
           <span class="status-pill" data-tone="${tone}">${item.status || "-"}</span>
         </div>
       </div>
-      <div class="meta-row">
-        <p class="meta-line"><strong>Type:</strong> ${item.type || "-"}</p>
-        <p class="meta-line"><strong>FTE:</strong> ${item.fte || "-"}</p>
-        <p class="meta-line"><strong>Cost:</strong> ${item.cost || "-"}</p>
-      </div>
+        <div class="meta-row">
+          <p class="meta-line"><strong>Type:</strong> ${item.type || "-"}</p>
+          <p class="meta-line"><strong>FTE:</strong> ${formatFteValue(item.fte)}</p>
+          <p class="meta-line"><strong>Cost:</strong> ${formatCostValue(item.cost)}</p>
+        </div>
       <div class="action-remark-list">
         ${remarkLines.map((line) => `<p>${line}</p>`).join("")}
       </div>
@@ -363,7 +420,7 @@ function openActionModal(step) {
     const card = document.createElement("article");
     card.className = "action-summary-card";
     const remarkLines = formatStructuredLines(item.remark);
-    const tone = item.status === "取消" ? "danger" : item.status === "待报价" || item.status === "待审批" ? "warn" : "good";
+    const tone = item.status === "å–æ¶ˆ" ? "danger" : item.status === "å¾…æŠ¥ä»·" || item.status === "å¾…å®¡æ‰¹" ? "warn" : "good";
     card.dataset.tone = tone;
     card.innerHTML = `
       <div class="action-card-top">
@@ -374,11 +431,11 @@ function openActionModal(step) {
           <span class="status-pill" data-tone="${tone}">${item.status || "-"}</span>
         </div>
       </div>
-      <div class="meta-row">
-        <p class="meta-line"><strong>Step:</strong> ${item.step || "-"}</p>
-        <p class="meta-line"><strong>FTE:</strong> ${item.fte || "-"}</p>
-        <p class="meta-line"><strong>Cost:</strong> ${item.cost || "-"}</p>
-      </div>
+        <div class="meta-row">
+          <p class="meta-line"><strong>Step:</strong> ${item.step || "-"}</p>
+          <p class="meta-line"><strong>FTE:</strong> ${formatFteValue(item.fte)}</p>
+          <p class="meta-line"><strong>Cost:</strong> ${formatCostValue(item.cost)}</p>
+        </div>
       <div class="action-remark-list">
         ${remarkLines.map((line) => `<p>${line}</p>`).join("")}
       </div>
@@ -387,6 +444,78 @@ function openActionModal(step) {
   });
 
   modal.hidden = false;
+}
+
+function drawServiceChart(service, businessStatus) {
+  const canvas = document.getElementById("service-chart");
+  const context = canvas.getContext("2d");
+  const width = canvas.parentElement.clientWidth - 36;
+  const height = 360;
+  const dpr = window.devicePixelRatio || 1;
+  const serviceIndex = businessStatus.columns.indexOf(service);
+  const points = businessStatus.rows.map((row) => ({
+    label: row[0].split(" ")[0],
+    value: toNumeric(row[serviceIndex]),
+  }));
+  const maxValue = Math.max(...points.map((item) => item.value), 1);
+  const padding = { top: 24, right: 20, bottom: 48, left: 52 };
+  const chartWidth = width - padding.left - padding.right;
+  const chartHeight = height - padding.top - padding.bottom;
+  const barWidth = chartWidth / points.length - 10;
+
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+  context.setTransform(dpr, 0, 0, dpr, 0, 0);
+  context.clearRect(0, 0, width, height);
+
+  context.strokeStyle = "rgba(17,17,17,0.10)";
+  context.lineWidth = 1;
+  for (let i = 0; i <= 4; i += 1) {
+    const y = padding.top + (chartHeight / 4) * i;
+    context.beginPath();
+    context.moveTo(padding.left, y);
+    context.lineTo(width - padding.right, y);
+    context.stroke();
+  }
+
+  points.forEach((point, index) => {
+    const x = padding.left + index * (chartWidth / points.length) + 5;
+    const barHeight = (point.value / maxValue) * chartHeight;
+    const y = padding.top + chartHeight - barHeight;
+
+    context.fillStyle = "#2c8f67";
+    context.fillRect(x, y, barWidth, barHeight);
+
+    context.fillStyle = "rgba(17,17,17,0.78)";
+    context.font = '12px "Noto Sans SC"';
+    context.textAlign = "center";
+    context.fillText(point.label, x + barWidth / 2, height - 18);
+
+    context.fillStyle = "#2c8f67";
+    context.font = '11px "Space Grotesk"';
+    context.fillText(formatFteValue(point.value), x + barWidth / 2, y - 8);
+  });
+}
+
+function openServiceModal(service, businessStatus) {
+  const modal = document.getElementById("service-modal");
+  const serviceIndex = businessStatus.columns.indexOf(service);
+  const total = businessStatus.rows.reduce((sum, row) => sum + toNumeric(row[serviceIndex]), 0);
+  const topStep = businessStatus.rows
+    .map((row) => ({ step: row[0], value: toNumeric(row[serviceIndex]) }))
+    .sort((a, b) => b.value - a.value)[0];
+
+  setText("service-modal-title", `${service} Step Distribution`);
+  setText("service-modal-service", service);
+  setText(
+    "service-modal-summary",
+    `${formatFteValue(total)} total FTE across Step 1â€“10. Highest concentration: ${topStep.step} (${formatFteValue(topStep.value)}).`
+  );
+
+  modal.hidden = false;
+  requestAnimationFrame(() => drawServiceChart(service, businessStatus));
 }
 
 function renderPhases(phases) {
@@ -643,20 +772,8 @@ function renderRiskSection(targetId, items) {
 }
 
 function renderDashboard() {
-  const filteredTasks = getFilteredTasks(dashboardData.tasks);
-
   renderBusinessStatus(dashboardData.businessStatus);
   renderActionCards();
-  renderRangeChips(dashboardData.ranges);
-  renderOwnerFilter(dashboardData.tasks);
-  renderMetrics(dashboardData.metrics);
-  renderPhases(dashboardData.phases);
-  renderTimeline(dashboardData.milestones);
-  renderTasks(filteredTasks);
-  renderRiskSection("risk-list", dashboardData.risks);
-  renderRiskSection("action-list", dashboardData.actions);
-  renderHighlights(dashboardData, filteredTasks);
-  drawTrendChart(dashboardData.trendByRange[state.range]);
 }
 
 function validateDashboardData(data) {
@@ -684,6 +801,7 @@ function exportData() {
 
 function bindActions() {
   const modal = document.getElementById("action-modal");
+  const serviceModal = document.getElementById("service-modal");
   document.getElementById("modal-close").addEventListener("click", () => {
     modal.hidden = true;
   });
@@ -692,45 +810,12 @@ function bindActions() {
       modal.hidden = true;
     }
   });
-  document.getElementById("toggle-presenter").addEventListener("click", () => {
-    state.presenterMode = !state.presenterMode;
-    document.body.classList.toggle("presenter-mode", state.presenterMode);
-    setBanner(
-      state.presenterMode
-        ? "Presenter mode is on. The layout is now better suited for projection and review meetings."
-        : "Presenter mode is off. The dashboard is back to the standard browsing layout.",
-      "success"
-    );
-    renderDashboard();
+  document.getElementById("service-modal-close").addEventListener("click", () => {
+    serviceModal.hidden = true;
   });
-
-  document.getElementById("export-data").addEventListener("click", () => {
-    exportData();
-    setBanner("The current dashboard data has been exported as JSON for backup or reuse.", "success");
-  });
-
-  document.getElementById("data-file").addEventListener("change", async (event) => {
-    const [file] = event.target.files || [];
-    if (!file) {
-      return;
-    }
-
-    try {
-      const text = await file.text();
-      const parsed = JSON.parse(text);
-      if (!validateDashboardData(parsed)) {
-        throw new Error("The data structure is incomplete");
-      }
-
-      dashboardData = parsed;
-      syncRange();
-      state.owner = "all";
-      initDashboard(dashboardData);
-      setBanner(`Imported ${file.name}. The dashboard content has been updated with your project data.`, "success");
-    } catch (error) {
-      setBanner(`Import failed: ${error.message}. Please validate the JSON structure and try again.`);
-    } finally {
-      event.target.value = "";
+  serviceModal.addEventListener("click", (event) => {
+    if (event.target === serviceModal) {
+      serviceModal.hidden = true;
     }
   });
 }
@@ -742,13 +827,9 @@ function initDashboard(data) {
   setText("project-stage", data.stage);
   setText("project-owner", data.owner);
   setText("overall-progress", `${data.progress}%`);
-  setText("health-score", data.health.score);
   renderDashboard();
 }
 
-window.addEventListener("resize", () => {
-  drawTrendChart(dashboardData.trendByRange[state.range]);
-});
-
 bindActions();
 initDashboard(dashboardData);
+

@@ -1,6 +1,6 @@
 ﻿window.DISCUSSION_SUMMARY = {
     "sourceFile":  "C:\\Users\\Sky.Lu\\OneDrive - Thermo Fisher Scientific\\Desktop\\Discussion Summary.xlsx",
-    "syncedAt":  "2026-04-03T15:50:04",
+    "syncedAt":  "2026-04-07T11:52:24",
     "groups":  [
                    {
                        "l1":  "01 准备与客户主数据",

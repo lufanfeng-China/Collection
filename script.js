@@ -101,6 +101,7 @@ const state = {
   actionStep: "all",
   actionStatus: "all",
   actionType: "all",
+  processThreshold: 0.1,
 };
 
 let dashboardData = structuredClone(defaultDashboardData);
@@ -202,6 +203,240 @@ function formatCostValue(value) {
   }
 
   return `￥${num.toLocaleString("en-US")}`;
+}
+
+function buildActionCardMarkup(item, includeStep = false) {
+  const remarkLines = formatStructuredLines(item.remark);
+  const tone = item.status === "取消" ? "danger" : item.status === "待报价" || item.status === "待审批" ? "warn" : "good";
+
+  return `
+    <article class="action-summary-card" data-tone="${tone}">
+      <div class="action-card-top">
+        <h3>${item.changePoint || "-"}</h3>
+        <div class="action-card-tags">
+          <span class="action-tag">${item.system || "Unknown System"}</span>
+          ${item.type ? `<span class="action-tag">${item.type}</span>` : ""}
+          <span class="status-pill" data-tone="${tone}">${item.status || "-"}</span>
+        </div>
+      </div>
+      <div class="meta-row">
+        <p class="meta-line"><strong>${includeStep ? "Step" : "Type"}:</strong> ${includeStep ? item.step || "-" : item.type || "-"}</p>
+        <p class="meta-line"><strong>FTE:</strong> ${formatFteValue(item.fte)}</p>
+        <p class="meta-line"><strong>Cost:</strong> ${formatCostValue(item.cost)}</p>
+      </div>
+      <div class="action-remark-list">
+        ${remarkLines.map((line) => `<p>${line}</p>`).join("")}
+      </div>
+    </article>
+  `;
+}
+
+function openActionItemsModal(titleText, items, includeStep = false) {
+  const modal = document.getElementById("action-modal");
+  const title = document.getElementById("modal-title");
+  const grid = document.getElementById("modal-card-grid");
+
+  title.textContent = titleText;
+  grid.innerHTML = "";
+
+  if (!items.length) {
+    grid.innerHTML = `
+      <article class="overview-panel">
+        <strong>No linked action items</strong>
+        <p>No matching records were found for the selected step.</p>
+      </article>
+    `;
+    modal.hidden = false;
+    return;
+  }
+
+  items.forEach((item) => {
+    grid.insertAdjacentHTML("beforeend", buildActionCardMarkup(item, includeStep));
+  });
+
+  modal.hidden = false;
+}
+
+function renderProcessMap() {
+  const container = document.getElementById("process-map");
+  const thresholdInput = document.getElementById("process-threshold-input");
+  if (!container) {
+    return;
+  }
+
+  if (thresholdInput) {
+    if (document.activeElement !== thresholdInput) {
+      thresholdInput.value = Number(state.processThreshold).toFixed(2);
+    }
+
+    thresholdInput.onchange = (event) => {
+      const normalized = String(event.target.value).trim();
+      const nextValue = Number(normalized);
+      state.processThreshold = Number.isFinite(nextValue) && nextValue >= 0 ? nextValue : 0;
+      renderDashboard();
+    };
+
+    thresholdInput.onblur = (event) => {
+      const normalized = String(event.target.value).trim();
+      const nextValue = Number(normalized);
+      state.processThreshold = Number.isFinite(nextValue) && nextValue >= 0 ? nextValue : 0;
+      renderDashboard();
+    };
+  }
+
+  const groups = window.DISCUSSION_SUMMARY?.groups || [];
+  const sourceItems = groups.flatMap((group) =>
+    (group.items || []).map((item) => ({
+      band: item.h || group.h || group.l1 || item.l1 || "",
+      step: item.l2 || "",
+      total: toNumeric(item.total),
+    }))
+  );
+
+  const actionItems = window.ACTION_SUMMARY?.items || [];
+  const actionStepTotals = new Map();
+
+  actionItems.forEach((item) => {
+    const processStep =
+      item.processStep ||
+      item.stepDetail ||
+      item.stepL2 ||
+      item.i ||
+      item.step ||
+      "";
+    if (!processStep) {
+      return;
+    }
+    actionStepTotals.set(processStep, (actionStepTotals.get(processStep) || 0) + toNumeric(item.fte));
+  });
+
+  const items = [];
+  const itemMap = new Map();
+
+  sourceItems.forEach((item) => {
+    const bandKey = item.band || "Other";
+    const stepKey = item.step || "Undefined";
+    const key = `${bandKey}__${stepKey}`;
+    if (!itemMap.has(key)) {
+      const merged = {
+        band: bandKey,
+        step: stepKey,
+        total: 0,
+      };
+      itemMap.set(key, merged);
+      items.push(merged);
+    }
+    itemMap.get(key).total += item.total;
+  });
+
+  const threshold = Number(state.processThreshold) || 0;
+  const filteredItems = items.filter((item) => item.total + Number.EPSILON >= threshold);
+
+  container.innerHTML = "";
+
+  if (!filteredItems.length) {
+    container.innerHTML = `
+      <article class="overview-panel">
+        <strong>No summary rows available</strong>
+        <p>The discussion summary workbook did not return any process rows.</p>
+      </article>
+    `;
+    return;
+  }
+
+  const maxTotal = Math.max(...filteredItems.map((item) => item.total), 0.001);
+  const bandsMeta = [];
+  let cursor = 0;
+  let currentBand = "";
+
+  filteredItems.forEach((item) => {
+    if (item.band !== currentBand) {
+      currentBand = item.band;
+      bandsMeta.push({
+        name: currentBand,
+        start: cursor,
+        span: 1,
+      });
+    } else {
+      bandsMeta[bandsMeta.length - 1].span += 1;
+    }
+    cursor += 1;
+  });
+
+  const labels = document.createElement("div");
+  labels.className = "process-label-row";
+  labels.style.gridTemplateColumns = `repeat(${filteredItems.length}, minmax(0, 1fr))`;
+
+  filteredItems.forEach((item) => {
+    const label = document.createElement("div");
+    label.className = "process-label-slot";
+    const text = document.createElement("span");
+    text.className = "process-label";
+    text.textContent = item.step;
+    label.appendChild(text);
+    labels.appendChild(label);
+  });
+
+  const bands = document.createElement("div");
+  bands.className = "process-band-row";
+  bands.style.gridTemplateColumns = `repeat(${filteredItems.length}, minmax(0, 1fr))`;
+
+  bandsMeta.forEach((stage, index) => {
+    const band = document.createElement("div");
+    band.className = "process-band";
+    band.style.gridColumn = `${stage.start + 1} / span ${stage.span}`;
+    band.dataset.tone = index % 2 === 0 ? "accent" : "soft";
+    band.textContent = stage.name;
+    bands.appendChild(band);
+  });
+
+  const bars = document.createElement("div");
+  bars.className = "process-bar-row";
+  bars.style.gridTemplateColumns = `repeat(${filteredItems.length}, minmax(0, 1fr))`;
+
+  filteredItems.forEach((item) => {
+    const column = document.createElement("div");
+    column.className = "process-bar-col";
+
+    const bar = document.createElement("div");
+    bar.className = "process-bar";
+    const linkedActionFte = actionStepTotals.get(item.step) || 0;
+    if (linkedActionFte > 0) {
+      bar.classList.add("is-linked");
+      bar.tabIndex = 0;
+      bar.setAttribute("role", "button");
+      bar.setAttribute("aria-label", `${item.step} linked actions`);
+      bar.addEventListener("click", () => {
+        const matchedItems = actionItems.filter((actionItem) => {
+          const processStep =
+            actionItem.processStep ||
+            actionItem.stepDetail ||
+            actionItem.stepL2 ||
+            actionItem.i ||
+            actionItem.step ||
+            "";
+          return processStep === item.step;
+        });
+        openActionItemsModal(`${item.step} Linked Actions`, matchedItems, true);
+      });
+      bar.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          bar.click();
+        }
+      });
+    }
+    bar.style.height = `${Math.max((item.total / maxTotal) * 210, item.total > 0 ? 10 : 2)}px`;
+
+    const value = document.createElement("span");
+    value.className = "process-value";
+    value.textContent = Number(item.total).toFixed(1);
+
+    column.append(bar, value);
+    bars.appendChild(column);
+  });
+
+  container.append(labels, bands, bars);
 }
 
 function renderBusinessStatus(businessStatus) {
@@ -379,71 +614,13 @@ function renderActionCards() {
   }
 
   filtered.forEach((item) => {
-    const card = document.createElement("article");
-    card.className = "action-summary-card";
-    const remarkLines = formatStructuredLines(item.remark);
-    const tone = item.status === "å–æ¶ˆ" ? "danger" : item.status === "å¾…æŠ¥ä»·" || item.status === "å¾…å®¡æ‰¹" ? "warn" : "good";
-    card.dataset.tone = tone;
-
-    card.innerHTML = `
-      <div class="action-card-top">
-        <h3>${item.changePoint || "-"}</h3>
-        <div class="action-card-tags">
-          <span class="action-tag">${item.system || "Unknown System"}</span>
-          ${item.type ? `<span class="action-tag">${item.type}</span>` : ""}
-          <span class="status-pill" data-tone="${tone}">${item.status || "-"}</span>
-        </div>
-      </div>
-        <div class="meta-row">
-          <p class="meta-line"><strong>Type:</strong> ${item.type || "-"}</p>
-          <p class="meta-line"><strong>FTE:</strong> ${formatFteValue(item.fte)}</p>
-          <p class="meta-line"><strong>Cost:</strong> ${formatCostValue(item.cost)}</p>
-        </div>
-      <div class="action-remark-list">
-        ${remarkLines.map((line) => `<p>${line}</p>`).join("")}
-      </div>
-    `;
-    grid.appendChild(card);
+    grid.insertAdjacentHTML("beforeend", buildActionCardMarkup(item));
   });
 }
 
 function openActionModal(step) {
-  const modal = document.getElementById("action-modal");
-  const title = document.getElementById("modal-title");
-  const grid = document.getElementById("modal-card-grid");
   const items = (window.ACTION_SUMMARY?.items || []).filter((item) => item.step === step);
-
-  title.textContent = `${step} Linked Actions`;
-  grid.innerHTML = "";
-
-  items.forEach((item) => {
-    const card = document.createElement("article");
-    card.className = "action-summary-card";
-    const remarkLines = formatStructuredLines(item.remark);
-    const tone = item.status === "å–æ¶ˆ" ? "danger" : item.status === "å¾…æŠ¥ä»·" || item.status === "å¾…å®¡æ‰¹" ? "warn" : "good";
-    card.dataset.tone = tone;
-    card.innerHTML = `
-      <div class="action-card-top">
-        <h3>${item.changePoint || "-"}</h3>
-        <div class="action-card-tags">
-          <span class="action-tag">${item.system || "Unknown System"}</span>
-          ${item.type ? `<span class="action-tag">${item.type}</span>` : ""}
-          <span class="status-pill" data-tone="${tone}">${item.status || "-"}</span>
-        </div>
-      </div>
-        <div class="meta-row">
-          <p class="meta-line"><strong>Step:</strong> ${item.step || "-"}</p>
-          <p class="meta-line"><strong>FTE:</strong> ${formatFteValue(item.fte)}</p>
-          <p class="meta-line"><strong>Cost:</strong> ${formatCostValue(item.cost)}</p>
-        </div>
-      <div class="action-remark-list">
-        ${remarkLines.map((line) => `<p>${line}</p>`).join("")}
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-
-  modal.hidden = false;
+  openActionItemsModal(`${step} Linked Actions`, items, true);
 }
 
 function drawServiceChart(service, businessStatus) {
@@ -773,6 +950,7 @@ function renderRiskSection(targetId, items) {
 
 function renderDashboard() {
   renderBusinessStatus(dashboardData.businessStatus);
+  renderProcessMap();
   renderActionCards();
 }
 

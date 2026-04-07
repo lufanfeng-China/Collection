@@ -708,6 +708,123 @@ h1 {
   line-height: 1.7;
 }
 
+.process-map-head {
+  align-items: start;
+}
+
+.process-toolbar {
+  justify-content: end;
+  margin-bottom: 0;
+}
+
+.process-map-shell {
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.process-map {
+  min-width: 0;
+  width: 100%;
+  padding: 4px 0 8px;
+}
+
+.process-label-row,
+.process-band-row,
+.process-bar-row {
+  display: grid;
+}
+
+.process-label-row {
+  align-items: start;
+  min-height: 142px;
+  padding-bottom: 0;
+}
+
+.process-label-slot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+}
+
+.process-label {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: calc(50% - 5px);
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  color: rgba(17, 17, 17, 0.42);
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.process-band-row {
+  margin-top: 0;
+}
+
+.process-band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 6px 6px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  color: rgba(17, 17, 17, 0.78);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.process-band[data-tone="accent"] {
+  background: rgba(88, 187, 204, 0.9);
+}
+
+.process-band[data-tone="soft"] {
+  background: rgba(214, 231, 237, 0.95);
+}
+
+.process-bar-row {
+  align-items: start;
+  min-height: 248px;
+  padding-top: 4px;
+}
+
+.process-bar-col {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+}
+
+.process-bar {
+  width: 100%;
+  max-width: 22px;
+  background: rgba(90, 90, 90, 0.84);
+  border-left: 1px solid rgba(255, 255, 255, 0.45);
+  border-right: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.process-bar.is-linked {
+  background: #1f7a55;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(31, 122, 85, 0.18);
+}
+
+.process-bar.is-linked:hover,
+.process-bar.is-linked:focus-visible {
+  background: #16613f;
+  outline: none;
+}
+
+.process-value {
+  margin-top: 8px;
+  font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+  font-size: 0.66rem;
+  color: rgba(17, 17, 17, 0.62);
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1432,7 +1549,12 @@ body.presenter-mode .status-banner {
   .action-card-grid,
   .detail-grid {
     grid-template-columns: 1fr;
-  }`r`n
+  }
+
+  .process-map {
+    min-width: 1240px;
+  }
+
   .modal-backdrop {
     padding: 14px;
   }

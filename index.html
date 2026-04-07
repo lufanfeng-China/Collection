@@ -132,7 +132,7 @@
           <div>
             <div class="section-head">
               <h2><span class="title-line">Business Current Status</span></h2>
-              <p>Current FTE allocation by business step and service line, based on the latest workload snapshot.</p>
+              <p>Current FTE allocation by business step and legal entity, based on the latest workload snapshot.</p>
             </div>
             <div class="business-table-shell">
               <table class="business-table" id="business-table">
@@ -175,6 +175,21 @@
               </div>
             </article>
           </aside>
+        </section>
+
+        <section class="section slide process-map-section">
+          <div class="section-head process-map-head">
+            <h2>Process Footprint View</h2>
+            <div class="toolbar process-toolbar">
+              <div class="toolbar-group">
+                <span class="toolbar-label">FTE Threshold</span>
+                <input id="process-threshold-input" class="toolbar-select" type="text" inputmode="decimal" value="0.10" />
+              </div>
+            </div>
+          </div>
+          <div class="process-map-shell">
+            <div class="process-map" id="process-map"></div>
+          </div>
         </section>
 
         <section class="section slide">
@@ -220,22 +235,23 @@
     <div class="modal-backdrop" id="service-modal" hidden>
       <div class="modal-panel">
         <div class="section-head modal-head">
-          <h2 id="service-modal-title">Service Distribution</h2>
+          <h2 id="service-modal-title">Legal Entity Distribution</h2>
           <button type="button" class="chip-button" id="service-modal-close">Close</button>
         </div>
         <div class="overview-stack">
           <article class="overview-panel">
-            <span class="meta-label">Selected Service Line</span>
+            <span class="meta-label">Selected Legal Entity</span>
             <strong id="service-modal-service"></strong>
             <p id="service-modal-summary"></p>
           </article>
         </div>
         <div class="chart-card">
-          <canvas id="service-chart" aria-label="Service line distribution chart"></canvas>
+          <canvas id="service-chart" aria-label="Legal entity distribution chart"></canvas>
         </div>
       </div>
     </div>
 
+    <script src="./discussion-summary-data.js"></script>
     <script src="./action-summary-data.js"></script>
     <script src="./script.js"></script>
   </body>

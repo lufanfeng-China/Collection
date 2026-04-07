@@ -1,56 +1,61 @@
 ﻿window.ACTION_SUMMARY = {
     "sourceFile":  "C:\\Users\\Sky.Lu\\OneDrive - Thermo Fisher Scientific\\Desktop\\Discussion Summary.xlsx",
-    "syncedAt":  "2026-04-07T11:52:24",
+    "syncedAt":  "2026-04-07T22:35:28",
     "items":  [
                   {
                       "system":  "VAT",
                       "changePoint":  "收款团队在VAT系统内直接申请开票",
                       "remark":  "1.  Amy强调VAT团队需要进行税务合规性判断,如品名修改是否符合税率要求\n2.  品名不能随意变更(如A改成B再改成C),需要确保税务合规\n3.  拆分也有专业要求,如不能随意拆成小数(0.8和0.2)\n4.  技术上可以给收款团队开放权限自行操作\n5.  如果收款团队接手,需要具备基本的税务和开票知识\n6.  VAT团队的专业判断包括:确认是否符合税务要求、正确的税收编码等\n7.  工作量从一个团队转移到另一个团队,整体效率提升有限",
-                      "fte":  "-",
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "取消",
                       "type":  "CR",
-                      "step":  "02 开票与其他支持材料交付"
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
                   },
                   {
                       "system":  "VAT",
                       "changePoint":  "产品名称与官网同步",
                       "remark":  "1. 药监局开票品名必须和备案过的品名一致\n2. 中英文维护在中文字段\n3. 有需要去掉英文的特殊需求\n4. VAT一定要有中文名称\n5. 官网有只有英文的情况（需要看一下具体的比例）\n6. 经过数据验证，官网SKU纯中文和混合  是有中文品名能用的  加起来有 18009个物料号，占总计需要中文品名物料号（107529）的16.7%",
-                      "fte":  null,
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "取消",
                       "type":  "CR",
-                      "step":  "02 开票与其他支持材料交付"
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
                   },
                   {
                       "system":  "VAT",
                       "changePoint":  "发票行项目顺序调整",
                       "remark":  "1. 需要评估客户需求的必要性和频率\n2. 票一通系统支持此功能\n3. 还要考虑匠领系统的变更",
-                      "fte":  null,
+                      "fte":  "0.02",
                       "cost":  "100000",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "02 开票与其他支持材料交付"
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
                   },
                   {
                       "system":  "Credit",
                       "changePoint":  "Credit端增加银行水单抓取能力",
-                      "remark":  "1.  一天多次定时同步\n2.  Share folder 去取抓AR同事手工维护的表格，进入Credit\n    - 客户抬头\n    - 金额\n    - 日期\n    - 付款摘要（备注）\n3.  需要Credit和Collection拉齐需求的理解",
-                      "fte":  null,
+                      "remark":  "1.  一天多次定时同步\n2.  Share folder 去取抓AR同事手工维护的表格，进入Credit\n    - 客户抬头\n    - 金额\n    - 日期\n    - 付款摘要（备注）\n3.  需要Credit和Collection拉齐需求的理解\n补充：对于已到账未核销的款项，信控可能需要收款员确认订单明细或者用途（举例：是否可以核销超期、或者多BT的情况、或者单笔预付。）",
+                      "fte":  "0.1",
                       "cost":  null,
                       "status":  "评估中",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "信控合作"
                   },
                   {
                       "system":  "Credit",
                       "changePoint":  "科研客户黑名单政策：从“默认解锁”评估调整为“默认锁定”",
-                      "remark":  "1. Academia客户系统中有十万家,黑名单客户不到0.3%\n2. 维持默认解锁评估政策,不调整为默认锁定\n3. 从效率角度考虑,99.7%的客户都是良好客户,不应为极少数问题客户影响整体效率",
-                      "fte":  null,
+                      "remark":  "1. Academia客户系统中有十万家,黑名单客户不到0.3%\n2. 维持默认解锁评估政策,不调整为默认锁定\n3. 从效率角度考虑,99.7%的客户都是良好客户,不应为极少数问题客户影响整体效率\n4. C1客户，科研类大额订单/科研类重启账户，需收款员确认经费和报账方案。",
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "取消",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "信控合作"
                   },
                   {
                       "system":  "企业微信",
@@ -60,7 +65,8 @@
                       "cost":  null,
                       "status":  "评估中",
                       "type":  "New",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "高频客户跟进"
                   },
                   {
                       "system":  "企业微信",
@@ -70,157 +76,173 @@
                       "cost":  null,
                       "status":  "评估中",
                       "type":  "AI",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "高频客户跟进"
                   },
                   {
                       "system":  "Credit",
                       "changePoint":  "补充customer层面付款习惯信息",
                       "remark":  "1.  在Credit系统中新增字段,从AR Portal同步客户层面付款习惯信息\n2.  将Billing维度和客户习惯信息分开显示在两个独立表格中,便于查看\n3.  数据已在AR Portal中存在,只需增加显示字段",
-                      "fte":  null,
+                      "fte":  "0.01",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "信控合作"
                   },
                   {
                       "system":  "Credit",
                       "changePoint":  "与Credit对齐收款团队跟进记录内容格式",
-                      "remark":  "1.  增加结构化的记录格式,前面部分用下拉选项记录季度底付款预期(能付/不能付/部分支付)\n2. 后面保留详细跟进记录供收款团队使用\n3.  通过规范化格式减少团队间重复沟通,便于后续dashboard分析",
-                      "fte":  null,
+                      "remark":  "1.  增加结构化的记录格式,前面部分用下拉选项记录季度底付款预期(能付/不能付/部分支付)\n2. 后面保留详细跟进记录供收款团队使用\n3.  通过规范化格式减少团队间重复沟通,便于后续dashboard分析\n跟进格式示例：微信发送老师账单/平台确认账款，发票没有问题，已经报账，预计3-4周可以到账。写明超期原因，推动情况，按实际情况写在workflow。\n ",
+                      "fte":  "0.09",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "信控合作"
                   },
                   {
                       "system":  "Credit",
                       "changePoint":  "收款跟进记录实时更新至Credit解锁系统",
-                      "remark":  "AR Portal与Credit系统同步**\n1.  当前Airport与Credit系统每天晚上同步一次前一天数据\n2.  收款团队更新**AR Portal**后,Credit团队要等到第二天才能看到相关信息\n3.  计划调查实现实时或按需同步的可能性,减少信息延迟导致的重复询问",
-                      "fte":  null,
+                      "remark":  "AR Portal与Credit系统同步**\n1.  当前AR portal与Credit系统每天晚上同步一次前一天数据\n2.  收款团队更新**AR Portal**后,Credit团队要等到第二天才能看到相关信息\n3.  计划调查实现实时或按需同步的可能性,减少信息延迟导致的重复询问\n实际操作中：如果credit系统显示跟进记录太多，信控同事会自己去AR Portal查看收款跟进记录（没有实时更新的必要）",
+                      "fte":  "0",
                       "cost":  null,
-                      "status":  "待报价",
+                      "status":  "取消",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "信控合作"
                   },
                   {
                       "system":  "PCS",
                       "changePoint":  "LSG 唯一一笔（一对一/一对多）系统自动认款，无需核销员点击确认",
                       "remark":  "当系统只给出一个匹配方案(solution)时,准确率非常高,基本无误 。团队确认可以跳过人工确认环节,如果只有一个匹配建议且满足授权节点要求,系统可自动完成匹配 。技术上无问题,仅需确认授权流程 。",
-                      "fte":  null,
+                      "fte":  "0.1",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
                       "changePoint":  "增加智能排序与优先级判断",
                       "remark":  "1.  为匹配建议添加优先级标记(HIGH/MIDDLE/LOW)\n2.  通过历史数据验证,如果HIGH优先级匹配准确率达到90-95%以上,可实现自动匹配\n3. 利用AI技术分析客户历史收款记录(半年内),总结收款逻辑并自动生成定制化匹配规则\n4.  系统可在闲暇时间(如周末)批量处理匹配逻辑生成,定期更新(每半年或2-3个月滚动更新)\n5. 优先从关键客户(经常无法一对一匹配的客户)开始实施",
-                      "fte":  null,
+                      "fte":  "0.3",
                       "cost":  null,
                       "status":  "评估中",
                       "type":  "AI",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
                       "changePoint":  "核销专员未认款转给收款员并生成任务",
                       "remark":  "1.  在系统中增加任务模块,集中显示需要收款员处理的待办事项\n2.  支持核销员或收款员之间互相cue任务,明确标记任务分配对象\n3.  解决当前虽能看到所有未核销款项,但无法快速筛选被分配任务的问题\n4.  记录任务历史,避免信息丢失,方便后续追溯",
-                      "fte":  null,
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "异常进账处理"
                   },
                   {
                       "system":  "AR Portal",
                       "changePoint":  "结构化填写催收跟进记录",
-                      "remark":  null,
-                      "fte":  null,
+                      "remark":  "1. 跟进记录结构化，e.g. 标签显示：客户是否承诺付款、预计付款日期等。实时对接Credit系统，便于信控同事快速阅读（节省见Credit部分）\n2. 结构化填写催收跟进记录，根据标签自动生成dashboard，展示BDQ FC、回款预测等信息",
+                      "fte":  "1.3308775831711611E-2",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "付款承诺管理"
                   },
                   {
                       "system":  "AR Portal",
                       "changePoint":  "梳理电话催收内容并形成结构化模板/字段",
-                      "remark":  null,
-                      "fte":  null,
+                      "remark":  "1. online工具、call center\n2. 企业微信的可能性\n（AI自动生成跟进记录）",
+                      "fte":  "0.15069411203780927",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "付款承诺管理"
                   },
                   {
                       "system":  "AR Portal",
                       "changePoint":  "PIP留痕：新增邮箱需客户验证，确认邮箱被指定系统使用",
                       "remark":  null,
-                      "fte":  null,
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "03 对账与争议处理"
+                      "step":  "03 对账与争议处理",
+                      "i":  "对账单发送"
                   },
                   {
                       "system":  "AR Portal",
                       "changePoint":  "AR Portal发信功能/模板拓展优化",
                       "remark":  null,
-                      "fte":  null,
+                      "fte":  "0.05",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "03 对账与争议处理",
+                      "i":  "对账单发送"
                   },
                   {
                       "system":  "AR Portal",
                       "changePoint":  "全周期管理、自动生成对账单、跨系统取数并生成客户格式",
-                      "remark":  null,
-                      "fte":  null,
+                      "remark":  "AR Portal对于全周期实现的可能性？（FTE预估仅针对call plan制定）",
+                      "fte":  "0.06",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "04 催收与承诺管理"
+                      "step":  "04 催收与承诺管理",
+                      "i":  "Call Plan制定"
                   },
                   {
                       "system":  "三方平台",
                       "changePoint":  "客户平台订单状态返还至AR Portal",
-                      "remark":  null,
-                      "fte":  null,
+                      "remark":  "见三方平台对接",
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "评估中",
                       "type":  "CR",
-                      "step":  "02 开票与其他支持材料交付"
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
                   },
                   {
                       "system":  "三方平台",
                       "changePoint":  "锐竞平台电子章功能",
-                      "remark":  null,
-                      "fte":  null,
+                      "remark":  "平台一键完下载、盖章、上传、三个功能",
+                      "fte":  "0.05",
                       "cost":  null,
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "02 开票与其他支持材料交付"
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "其他资料交付"
                   },
                   {
                       "system":  "三方平台",
-                      "changePoint":  "RPA/自动化工具用于主要客户平台操作（金士烈/百望云/耀明康德/三生）",
-                      "remark":  null,
-                      "fte":  null,
+                      "changePoint":  "RPA/自动化工具用于主要客户平台操作（金斯瑞/百望云/药明康德/三生）",
+                      "remark":  "如果用小机器人自动匹配，能自动匹配上的大概节省工时在15H左右",
+                      "fte":  "5.5555555555555552E-2",
                       "cost":  null,
                       "status":  "评估中",
                       "type":  "RPA",
-                      "step":  "02 开票与其他支持材料交付"
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
                   },
                   {
                       "system":  "三方平台",
-                      "changePoint":  "第三方客户平台供应商沟通API接口或RPA自动化方案（方圆/库巴扎/瑞金",
-                      "remark":  "1. 方元 - 开发费2万\n2. 库巴扎 - 一次性对接费5万，日常数据服务费是销售额的0.5%。累计销售额满1000万后返2万对接费。\n3. 锐竞 - 一次性开发费\n4. 喀斯玛 - 一次性开发费",
-                      "fte":  null,
+                      "changePoint":  "第三方客户平台供应商沟通API接口或RPA自动化方案（方圆/库巴扎/锐竞",
+                      "remark":  "1. 方元 - 开发费2万\n2. 库巴扎 - 一次性对接费5万，日常数据服务费是销售额的0.5%。累计销售额满1000万后返2万对接费。\n3. 锐竞 - 一次性开发费\n4. 喀斯玛 - 一次性开发费\n\n如果对接能达到以下功能，预计可saving 2.6 FTE\n1）核对：根据AR表billing备注的PO或SKU/课题组，查询平台订单状态及时间。抓取返还字段：平台订单号，配送单号，收货人，收货人电话，返还至AR Portal（billing 层面）\n2）上传送货签收：库巴扎平台配送中订单上传我司送货单签收\n3）上传发票：上传发票+验真 \n4）下载：送货单/配送单，汇总结算单",
+                      "fte":  "2.6",
                       "cost":  null,
                       "status":  "待审批",
                       "type":  "API",
-                      "step":  "02 开票与其他支持材料交付"
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
                   },
                   {
                       "system":  "PCS",
@@ -230,57 +252,30 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "第三方代付"
                   },
                   {
                       "system":  "MDM",
                       "changePoint":  "MDM增加科研客户特征字段，实现自动判断",
                       "remark":  "1. 校验内容\n     收票邮箱地址 \n     收票人姓名\n     收票人地址\n     收票人手机号码\n2. 科研客户的判断标准： 财务黑名单 - 这个黑名单需要有更新的能力（不管是Collection自己做还是找业务owner）\n3.  校验的对象： E1的BT对象\n4.  财务会提供一个AP portal里的已有邮箱清单，在做收票邮箱地址的时候，也要检查这个清单。（这个清单也要可维护）\n5.  把校验结果放在现有的财务审批节点，如下图的黑名单客户判定区域，增加：\n    收票邮箱地址重复检验： Yes\n    收票人姓名重复检验：No\n    收票人地址重复校验：No\n    收票人手机号码重复检验：No",
-                      "fte":  null,
+                      "fte":  "4.4999999999999998E-2",
                       "cost":  "33000",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "01 准备与客户主数据"
+                      "step":  "01 准备与客户主数据",
+                      "i":  "客户新建与主数据维护"
                   },
                   {
                       "system":  "New",
                       "changePoint":  "销售统一提交客户信息变更的界面/小程序",
                       "remark":  "1. 联系人信息变更（BT或SO层面）\n    - 联系人邮箱\n    - 联系人电话\n    - 联系人姓名\n    - 文件接收地址\n2. 开票规则变更\n    - 暂停开票\n    - 发票类型变化\n    - 特殊开票要求更新\n        - 拆分\n        - 合并\n        - 开票时间要求\n3. 退票需求\n4. 客户开票抬头的更名（现在是通过邮件，微信直接由销售联系财务同事）：\n    - 名字\n    - 地址\n    - 银行\n    - 电话\n    \n    保证税号不变的情况下，如果有变化走新客户MDM流程",
-                      "fte":  null,
+                      "fte":  "0.08",
                       "cost":  null,
                       "status":  "待评估",
                       "type":  "AI",
-                      "step":  "01 准备与客户主数据"
-                  },
-                  {
-                      "system":  "AR Portal",
-                      "changePoint":  " HK  Collection整合",
-                      "remark":  "方向1：AR Portal \n方向2：自动化Excel方式",
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "04 催收与承诺管理"
-                  },
-                  {
-                      "system":  "AR Portal",
-                      "changePoint":  "AB service 整合进AR Portal",
-                      "remark":  "•\t收款计划管理\n•\t客户对账配置管理，对账文件要求，账单要求，对账要求，提醒设置等\n•\t客户对账单制作和发送,。目前，85%标准对账单(邮件发送平台) ，15%手工处理 非标对账单。未来系统根据客户的要求，自动按要求生成对账单。\n•\t对账文件管理\n•\t收款跟进状态管理(Billing维度)\n•\t对账客户认证和授权",
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "04 催收与承诺管理"
-                  },
-                  {
-                      "system":  "PCS",
-                      "changePoint":  "AD HOC和PCS的整合，以及退款和押金模块的改进",
-                      "remark":  "目前：LSG的退款是在AD HOC上面走流程的，AR线下完成退款。没有系统tracking的记录。记录保存在E1，2年之后archive\n\tAIG的退款无法选择退回到这个流程的哪一层，需要可以选择退回哪一层。\n改进：copy AIG PCS，退款直接在PCS做申请和审批，这样也不需要申请人每次去E1截取收款凭证截图，直接从PCS选要退回的进账就可以了，也避免反复确认E1截图的准确性。同时可以保存记录和supporting。\n \t改进退回时候可选的功能。",
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "01 准备与客户主数据",
+                      "i":  "客户新建与主数据维护"
                   },
                   {
                       "system":  "PCS",
@@ -290,17 +285,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
-                  },
-                  {
-                      "system":  "PCS",
-                      "changePoint":  "完善PCS 报表功能",
-                      "remark":  "AIG+LSG的报表\n1.\tLSG本来就没有报表模块和DASH BOARD\n2.\tAIG的一些报告已经过时，需要更新：\n1.对于进账要有一个OPEN/CLOSE的标记，在一些报告里面需要按照这个标记来做筛选和导出，例如进账状态表，认款信息表，\n2.DP AR表增加客户名字的筛选，模糊和精确\n3.增加筛选框的多个信息输入，\n3.\t没有所有公司的FULL PICTURE，报表和DASHBOARD功能可以整合两个系统一起，有个门户展示，然后分别进入两个系统。",
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -310,7 +296,8 @@
                       "cost":  "62500",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "核销冲回"
                   },
                   {
                       "system":  "PCS",
@@ -320,7 +307,8 @@
                       "cost":  "7500",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -330,7 +318,8 @@
                       "cost":  "7500",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -340,7 +329,8 @@
                       "cost":  "7500",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "异常进账处理"
                   },
                   {
                       "system":  "PCS",
@@ -350,7 +340,8 @@
                       "cost":  "1500",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "未清账款报告"
                   },
                   {
                       "system":  "PCS",
@@ -360,7 +351,8 @@
                       "cost":  "7500",
                       "status":  "待审批",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "未清账款报告"
                   },
                   {
                       "system":  "PCS",
@@ -370,7 +362,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -380,7 +373,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -390,7 +384,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -400,7 +395,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -410,7 +406,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -420,7 +417,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -430,7 +428,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -440,7 +439,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -450,77 +450,30 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
-                  },
-                  {
-                      "system":  "PCS",
-                      "changePoint":  "负数billing 清账逻辑调整。",
-                      "remark":  "目前DP清完以后，剩下如果有正负AR，就不会清账了。把正负提前在DP清完之前抓取做清账。",
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "05 到账与核销"
-                  },
-                  {
-                      "system":  "PCS",
-                      "changePoint":  "BAD Report 倒置，收到汇票日期从新到旧",
-                      "remark":  null,
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "05 到账与核销"
-                  },
-                  {
-                      "system":  "PCS",
-                      "changePoint":  "外汇认款流程是否针对已拒绝，显示当时拒绝的理由",
-                      "remark":  null,
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "05 到账与核销"
-                  },
-                  {
-                      "system":  "PCS",
-                      "changePoint":  "押金部分争议后，该笔进账的原始DP 时间不会更新",
-                      "remark":  null,
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "05 到账与核销"
-                  },
-                  {
-                      "system":  "PCS",
-                      "changePoint":  "增加是否争议过的按钮",
-                      "remark":  null,
-                      "fte":  null,
-                      "cost":  null,
-                      "status":  "待报价",
-                      "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
                       "changePoint":  "待认款页面在筛选过之后页面最下面增加汇总功能",
                       "remark":  null,
-                      "fte":  null,
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
                       "changePoint":  "RI重复认款时，后一位同事提交时，需要出现提示功能",
                       "remark":  null,
-                      "fte":  null,
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -530,17 +483,19 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
                       "changePoint":  "认款建议优化（数量）",
                       "remark":  "认款建议超过5条不给建议，改善认款建议20条",
-                      "fte":  null,
+                      "fte":  "0",
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
                   },
                   {
                       "system":  "PCS",
@@ -550,7 +505,8 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "核销冲回"
                   },
                   {
                       "system":  "PCS",
@@ -560,7 +516,118 @@
                       "cost":  null,
                       "status":  "待报价",
                       "type":  "CR",
-                      "step":  "05 到账与核销"
+                      "step":  "05 到账与核销",
+                      "i":  "到款核销"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "对接合同folder抓取",
+                      "remark":  "合同扫描件（Phase2）改成从AmandA读水印章文件 - 系统对接实现有难度",
+                      "fte":  "0",
+                      "cost":  null,
+                      "status":  "取消",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "其他资料交付"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "文件特殊规则配置界面",
+                      "remark":  "KA - 是指需要特殊文件 的配置主要还是提供盖章PO件，分两块：1，需要PO盖章件匹配提供在对应的发票，随数电发票+盖章PO方式发送指定邮箱。2，同 一个PO涉及多个发票或Billing(分批发货这种情况）， 同一盖章PO需要持续覆盖在这个PO不同的Billing或发票维度上。\n1) KA这块如果两点都达到，可save每月3-4H， 注明下：是除罗氏之外的，罗氏的PO是需要手工勾选出当月发货开票在PO上的明细（一般PO上的SKU大于开票SKU）。罗氏现在平均billing个数每月有110-130左右。\n2) 这部分PO的上线功能，仅限于PO与开票相符\n3) 若开票与PO不符，均需要手工将开票的资料在PO上勾选，所以目前能save的工时有限",
+                      "fte":  "1.9444444444444445E-2",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "其他资料交付"
+                  },
+                  {
+                      "system":  "RPA",
+                      "changePoint":  "对接RPA-Rebilling/VAT ",
+                      "remark":  "1. VAT的对接处理将通过机器人流程自动化（RPA）实施：saving已预估，并与Michael会议讨论 - Pending\n2. Rebilling的对接，由于两边字段不一致，目前无法实现对接。我们将继续关注后续可能的解决方案。 ",
+                      "fte":  "0.2",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "RPA",
+                      "step":  "03 对账与争议处理",
+                      "i":  "争议识别与处理"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "催款函申请流程",
+                      "remark":  "\t四级催款函，系统设置模版即可。无需自动发送，由收款员手动转发任务给销售\n1. 收款员可以选择需要发送的Billing，系统自动获取Billing上面的跟进记录\n2. 展示当前BT/Billing对应的销售，允许收款员可以选择其他销售\n3. 生产任务给对应的销售，销售需要在页面点击Approve和Reject。\n-\t如果是Approve，账单就直接推送给客户，CC收款员。\n-\t如果Reject，需要通知收款员。\nNote：四级催款函任务超24小时没有处理，系统发一封邮件提醒销售",
+                      "fte":  "2.5000000000000001E-2",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理",
+                      "i":  "分级催款"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "应收账款升级",
+                      "remark":  "1. 触发：逾期≥60天且违约≥3次/长期失联≥180天/大额且配合低/坏账信号 - 根据规则自动提醒/升级\n2. 提请主管介入，或联合Sales/信控/管理层/法务沟通，明确管理决策 - 自动生成汇报内容并进行升级",
+                      "fte":  "0.01",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "04 催收与承诺管理",
+                      "i":  "升级触发"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "签收日期",
+                      "remark":  "AR portal添加送货单上的签收日期",
+                      "fte":  "0.01",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "其他资料交付"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "月结\u0026核对后开票",
+                      "remark":  "关于需客户确认开票，是否可以邮件直接发送客户确认，免于收款员人工整理明细并发送",
+                      "fte":  "0.1",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "科研平台结算（尤其后补单）",
+                      "remark":  "AR Portal和科研平台明细比对（见三方平台）\n1. 可结算状态，且明细金额一致直接自动申请VAT开票\n2. 不可结算：推动平台订单结算状态（方元平台二维码发送客户收货、库巴扎上传签收单后15天自动验收）\n3. 平台订单状态返还：如有订单状态，如实反馈至AR Portal，如未匹配到订单，返回状态”未补单“至AR Portal\n4. 自动抓取购买人、收货人联系方式",
+                      "fte":  "0",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
+                  },
+                  {
+                      "system":  "AR Portal",
+                      "changePoint":  "公司客户平台结算",
+                      "remark":  "AR Portal和公司平台明细比对：e.g. 药明、三生、金斯瑞平台，特性是以PO为核准单位（见三方平台）\n1. 进行结算比对\n- PO、数量、金额等关键信息比对完全一致后进行结算并上传发票。\n- 比对不一致，需要返回状态至AR Portal，汇总发送销售一同跟进\n2. 公司多为自建平台，需要沟通RPA、爬虫可能性\n优先度暂缓",
+                      "fte":  "0",
+                      "cost":  null,
+                      "status":  "待报价",
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
+                  },
+                  {
+                      "system":  "Process",
+                      "changePoint":  "收款流程优化",
+                      "remark":  "1. 如果前后台划分会涉及工作时间点集中：月初账单准备、开票；季度底年底集中到款核销\n2. 前后台划分为未来自动化提供基础，但目前纯人工操作可能增加沟通的时间成本\n3. Saving主要体现在表格前述各步骤的机会中\n",
+                      "fte":  "0",
+                      "cost":  null,
+                      "status":  null,
+                      "type":  "CR",
+                      "step":  "02 开票与其他支持材料交付",
+                      "i":  "特殊开票"
                   }
               ]
 };

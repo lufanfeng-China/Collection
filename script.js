@@ -241,15 +241,41 @@ function buildActionCardMarkup(item, includeStep = false) {
   `;
 }
 
+function sortActionItems(items) {
+  return [...items].sort((left, right) => {
+    if (state.actionSort === "fte-desc") {
+      return toNumeric(right.fte) - toNumeric(left.fte);
+    }
+    if (state.actionSort === "fte-asc") {
+      return toNumeric(left.fte) - toNumeric(right.fte);
+    }
+    if (state.actionSort === "cost-desc") {
+      return toNumeric(right.cost) - toNumeric(left.cost);
+    }
+    if (state.actionSort === "cost-asc") {
+      return toNumeric(left.cost) - toNumeric(right.cost);
+    }
+
+    const leftRank = actionStatusOrder[left.status] ?? 99;
+    const rightRank = actionStatusOrder[right.status] ?? 99;
+    if (leftRank !== rightRank) {
+      return leftRank - rightRank;
+    }
+
+    return toNumeric(right.fte) - toNumeric(left.fte);
+  });
+}
+
 function openActionItemsModal(titleText, items, includeStep = false) {
   const modal = document.getElementById("action-modal");
   const title = document.getElementById("modal-title");
   const grid = document.getElementById("modal-card-grid");
+  const sortedItems = sortActionItems(items);
 
   title.textContent = titleText;
   grid.innerHTML = "";
 
-  if (!items.length) {
+  if (!sortedItems.length) {
     grid.innerHTML = `
       <article class="overview-panel">
         <strong>No linked action items</strong>
@@ -260,7 +286,7 @@ function openActionItemsModal(titleText, items, includeStep = false) {
     return;
   }
 
-  items.forEach((item) => {
+  sortedItems.forEach((item) => {
     grid.insertAdjacentHTML("beforeend", buildActionCardMarkup(item, includeStep));
   });
 
@@ -616,33 +642,11 @@ function renderActionCards() {
     const typeMatch = state.actionType === "all" || item.type === state.actionType;
     return systemMatch && stepMatch && statusMatch && typeMatch;
   });
-
-  filtered.sort((left, right) => {
-    if (state.actionSort === "fte-desc") {
-      return toNumeric(right.fte) - toNumeric(left.fte);
-    }
-    if (state.actionSort === "fte-asc") {
-      return toNumeric(left.fte) - toNumeric(right.fte);
-    }
-    if (state.actionSort === "cost-desc") {
-      return toNumeric(right.cost) - toNumeric(left.cost);
-    }
-    if (state.actionSort === "cost-asc") {
-      return toNumeric(left.cost) - toNumeric(right.cost);
-    }
-
-    const leftRank = actionStatusOrder[left.status] ?? 99;
-    const rightRank = actionStatusOrder[right.status] ?? 99;
-    if (leftRank !== rightRank) {
-      return leftRank - rightRank;
-    }
-
-    return toNumeric(right.fte) - toNumeric(left.fte);
-  });
+  const sorted = sortActionItems(filtered);
 
   grid.innerHTML = "";
 
-  if (!filtered.length) {
+  if (!sorted.length) {
       grid.innerHTML = `
         <article class="overview-panel">
         <strong>No matched improvement points</strong>
@@ -652,7 +656,7 @@ function renderActionCards() {
     return;
   }
 
-  filtered.forEach((item) => {
+  sorted.forEach((item) => {
     grid.insertAdjacentHTML("beforeend", buildActionCardMarkup(item));
   });
 }

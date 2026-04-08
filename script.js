@@ -101,7 +101,17 @@ const state = {
   actionStep: "all",
   actionStatus: "all",
   actionType: "all",
+  actionSort: "status-default",
   processThreshold: 0.1,
+};
+
+const actionStatusOrder = {
+  待评估: 0,
+  评估中: 1,
+  待报价: 2,
+  待审批: 3,
+  已审批: 4,
+  取消: 5,
 };
 
 let dashboardData = structuredClone(defaultDashboardData);
@@ -536,6 +546,7 @@ function renderActionFilters(items) {
   const stepSelect = document.getElementById("action-step-filter");
   const statusSelect = document.getElementById("action-status-filter");
   const typeSelect = document.getElementById("action-type-filter");
+  const sortSelect = document.getElementById("action-sort-filter");
   const systems = ["all", ...new Set(items.map((item) => item.system).filter(Boolean))];
   const steps = ["all", ...new Set(items.map((item) => item.step).filter(Boolean))];
   const statuses = ["all", ...new Set(items.map((item) => item.status).filter(Boolean))];
@@ -569,6 +580,7 @@ function renderActionFilters(items) {
   stepSelect.value = state.actionStep;
   statusSelect.value = state.actionStatus;
   typeSelect.value = state.actionType;
+  sortSelect.value = state.actionSort;
 
   systemSelect.onchange = (event) => {
     state.actionSystem = event.target.value;
@@ -586,6 +598,10 @@ function renderActionFilters(items) {
     state.actionType = event.target.value;
     renderDashboard();
   };
+  sortSelect.onchange = (event) => {
+    state.actionSort = event.target.value;
+    renderDashboard();
+  };
 }
 
 function renderActionCards() {
@@ -599,6 +615,29 @@ function renderActionCards() {
     const statusMatch = state.actionStatus === "all" || item.status === state.actionStatus;
     const typeMatch = state.actionType === "all" || item.type === state.actionType;
     return systemMatch && stepMatch && statusMatch && typeMatch;
+  });
+
+  filtered.sort((left, right) => {
+    if (state.actionSort === "fte-desc") {
+      return toNumeric(right.fte) - toNumeric(left.fte);
+    }
+    if (state.actionSort === "fte-asc") {
+      return toNumeric(left.fte) - toNumeric(right.fte);
+    }
+    if (state.actionSort === "cost-desc") {
+      return toNumeric(right.cost) - toNumeric(left.cost);
+    }
+    if (state.actionSort === "cost-asc") {
+      return toNumeric(left.cost) - toNumeric(right.cost);
+    }
+
+    const leftRank = actionStatusOrder[left.status] ?? 99;
+    const rightRank = actionStatusOrder[right.status] ?? 99;
+    if (leftRank !== rightRank) {
+      return leftRank - rightRank;
+    }
+
+    return toNumeric(right.fte) - toNumeric(left.fte);
   });
 
   grid.innerHTML = "";

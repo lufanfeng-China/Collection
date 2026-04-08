@@ -26,13 +26,13 @@
         <div class="executive-metric-row executive-metric-row-alt">
           <article class="executive-metric executive-metric-blue">
             <span class="executive-label"><span class="mini-icon mini-icon-savings"></span>Savings Potential</span>
-            <strong>$0.38M–1.26M</strong>
-            <p>Low case without GBS: $383.8K <br />High case with GBS: $1.26M</p>
+            <strong>$0.54M - 1.23M</strong>
+            <p>Low case without GBS: $544.2K <br />High case with GBS: $1.12M</p>
           </article>
           <article class="executive-metric executive-metric-green">
             <span class="executive-label"><span class="mini-icon mini-icon-roi"></span>Investment & Return</span>
-            <strong>$250K / 1.2–2.0 yrs</strong>
-            <p>AI & Automation investment: $250K <br />ROI range: 1.2 to 2.0 years</p>
+            <strong>$250K / 0.8 - 2.6 yrs</strong>
+            <p>AI & Automation investment: $150K <br />ROI range: 0.8 to 2.6 years</p>
           </article>
           <article class="executive-metric executive-metric-teal">
             <span class="executive-label"><span class="mini-icon mini-icon-tech"></span>Impact Application</span>
@@ -45,10 +45,10 @@
           <div class="rollout-grid">
             <article class="rollout-card rollout-card-blue">
               <h3><span class="mini-icon mini-icon-blue"></span>1. AP / AR</h3>
-              <p class="rollout-meta">Kickoff: Apr 2026 &nbsp; | &nbsp; Existed Cost: $1,460K &nbsp; | &nbsp; Saving Target: $535K</p>
+              <p class="rollout-meta">Kickoff: Apr 2026 &nbsp; | &nbsp; Existed Cost: $1,715K &nbsp; | &nbsp; Saving Target: $520K</p>
               <div class="rollout-body">
                 <span>Actions:</span>
-                <p>Total HC 34, convert the AP/AR team to the GBS model; keep 8 HC in Shanghai and move 24 HC to GBS (plus 1 HC in RT).</p>
+                <p>Total HC 34, convert the AP/AR team to the GBS model; keep 8 HC in Shanghai and move 23 HC to GBS.</p>
               </div>
               <div class="rollout-body">
                 <span>Note:</span>
@@ -58,7 +58,7 @@
 
             <article class="rollout-card rollout-card-teal">
               <h3><span class="mini-icon mini-icon-teal"></span>2. Collection</h3>
-              <p class="rollout-meta">Kickoff: Jul 2026 &nbsp; | &nbsp; Existed Cost: $1,570K &nbsp; | &nbsp; Saving Target: $314K</p>
+              <p class="rollout-meta">Kickoff: April 2026 &nbsp; | &nbsp; Existed Cost: $1,570K &nbsp; | &nbsp; Saving Target: $314K</p>
               <div class="rollout-body">
                 <span>Actions:</span>
                 <p>Total HC 36, deliver around 20% savings through AI/Automation-enabled productivity improvement.</p>
@@ -71,16 +71,20 @@
 
             <article class="rollout-card rollout-card-green">
               <h3><span class="mini-icon mini-icon-green"></span>3. GL</h3>
-              <p class="rollout-meta">Kickoff: Sep 2026 &nbsp; | &nbsp; Existed Cost: $1,923K &nbsp; | &nbsp; Saving Target: $341K</p>
+              <p class="rollout-meta">Kickoff: July 2026 &nbsp; | &nbsp; Existed Cost: $1,923K &nbsp; | &nbsp; Saving Target: $219K</p>
               <div class="rollout-body">
                 <span>Actions:</span>
-                <p>Total HC 28, convert part of the GL team to the GBS model after process mapping and operating-model validation.</p>
+                <p>Total HC 28, convert part of the GL team (14 FTE) to the GBS model after process mapping and operating-model validation.</p>
+              </div>
+              <div class="rollout-body">
+                <span>Note:</span>
+                <p>100% band 5 and 30% band 6 move to GBS</p>
               </div>
             </article>
 
             <article class="rollout-card rollout-card-orange">
               <h3><span class="mini-icon mini-icon-orange"></span>4. Invoicing</h3>
-              <p class="rollout-meta">Kickoff: May 2026 &nbsp; | &nbsp; Existed Cost: $398K &nbsp; | &nbsp; Saving Target: $70K</p>
+              <p class="rollout-meta">Kickoff: April 2026 &nbsp; | &nbsp; Existed Cost: $398K &nbsp; | &nbsp; Saving Target: $70K</p>
               <div class="rollout-body">
                 <span>Actions:</span>
                 <p>Total HC 9, leverage AI/Automation to improve invoicing efficiency by about 20%.</p>
@@ -179,7 +183,19 @@
 
         <section class="section slide process-map-section">
           <div class="section-head process-map-head">
-            <h2>Process Footprint View</h2>
+            <div>
+              <h2>Process Footprint View</h2>
+              <div class="process-legend" aria-label="Process footprint legend">
+                <span class="process-legend-item">
+                  <span class="process-legend-swatch is-gray"></span>
+                  <span>Gray: No optimization potential</span>
+                </span>
+                <span class="process-legend-item">
+                  <span class="process-legend-swatch is-green"></span>
+                  <span>Green: Click for detailed actions</span>
+                </span>
+              </div>
+            </div>
             <div class="toolbar process-toolbar">
               <div class="toolbar-group">
                 <span class="toolbar-label">FTE Threshold</span>
@@ -208,6 +224,13 @@
                 </select>
                 <select id="action-type-filter" class="toolbar-select">
                   <option value="all">All Types</option>
+                </select>
+                <select id="action-sort-filter" class="toolbar-select">
+                  <option value="status-default">Default Order</option>
+                  <option value="fte-desc">FTE High to Low</option>
+                  <option value="fte-asc">FTE Low to High</option>
+                  <option value="cost-desc">Cost High to Low</option>
+                  <option value="cost-asc">Cost Low to High</option>
                 </select>
               </div>
             </div>

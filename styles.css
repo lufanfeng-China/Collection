@@ -712,6 +712,36 @@ h1 {
   align-items: start;
 }
 
+.process-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 10px;
+  color: rgba(47, 47, 47, 0.76);
+  font-size: 0.92rem;
+}
+
+.process-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.process-legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.process-legend-swatch.is-gray {
+  background: rgba(90, 90, 90, 0.84);
+}
+
+.process-legend-swatch.is-green {
+  background: #1f7a55;
+}
+
 .process-toolbar {
   justify-content: end;
   margin-bottom: 0;
@@ -754,7 +784,7 @@ h1 {
   left: calc(50% - 5px);
   transform: rotate(-90deg);
   transform-origin: left top;
-  color: rgba(17, 17, 17, 0.42);
+  color: rgba(17, 17, 17, 0.68);
   font-size: 0.72rem;
   letter-spacing: 0.01em;
   line-height: 1.1;

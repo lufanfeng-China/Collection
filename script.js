@@ -215,6 +215,32 @@ function formatCostValue(value) {
   return `￥${num.toLocaleString("en-US")}`;
 }
 
+function formatCompactCurrency(value) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) {
+    return "-";
+  }
+
+  if (Math.abs(num) >= 1000000) {
+    return `￥${(num / 1000000).toFixed(1)}M`;
+  }
+
+  if (Math.abs(num) >= 1000) {
+    return `￥${(num / 1000).toFixed(0)}K`;
+  }
+
+  return `￥${num.toFixed(0)}`;
+}
+
+function formatRevenueValue(value) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) {
+    return "-";
+  }
+
+  return `￥${num.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+}
+
 function buildActionCardMarkup(item, includeStep = false) {
   const remarkLines = formatStructuredLines(item.remark);
   const tone = item.status === "取消" ? "danger" : item.status === "待报价" || item.status === "待审批" ? "warn" : "good";
@@ -661,6 +687,179 @@ function renderActionCards() {
   });
 }
 
+function renderSystemOpportunityView() {
+  const grid = document.getElementById("system-summary-grid");
+  if (!grid) {
+    return;
+  }
+
+  const items = window.ACTION_SUMMARY?.items || [];
+  const grouped = new Map();
+
+  items.forEach((item) => {
+    const key = item.system || "Unknown";
+    if (!grouped.has(key)) {
+      grouped.set(key, { system: key, fte: 0, cost: 0, itemCount: 0, items: [] });
+    }
+
+    const current = grouped.get(key);
+    current.fte += toNumeric(item.fte);
+    current.cost += toNumeric(item.cost);
+    if (item.status !== "取消") {
+      current.itemCount += 1;
+    }
+    current.items.push(item);
+  });
+
+  const systems = [...grouped.values()].sort((a, b) => b.fte - a.fte || b.cost - a.cost);
+  grid.innerHTML = "";
+
+  if (!systems.length) {
+    grid.innerHTML = `
+      <article class="overview-panel">
+        <strong>No system-level action data</strong>
+        <p>The Action sheet did not return any grouped system records.</p>
+      </article>
+    `;
+    return;
+  }
+
+  systems.forEach((system) => {
+    const share = Math.max(...systems.map((item) => item.fte), 0.001);
+    const percent = Math.max((system.fte / share) * 100, system.fte > 0 ? 12 : 4);
+
+    grid.insertAdjacentHTML(
+      "beforeend",
+      `
+        <article class="system-card">
+          <div class="system-card-head">
+            <h3>${system.system}</h3>
+            <a href="#" class="action-tag action-tag-link" data-system="${system.system}">${system.itemCount} actions</a>
+          </div>
+          <div class="system-metric-row">
+            <div>
+              <span class="meta-label">FTE</span>
+              <strong>${formatFteValue(system.fte)}</strong>
+            </div>
+            <div>
+              <span class="meta-label">Cost</span>
+              <strong>${formatCostValue(system.cost)}</strong>
+            </div>
+          </div>
+          <div class="system-bar-track">
+            <div class="system-bar-fill" style="width:${percent}%"></div>
+          </div>
+        </article>
+      `
+    );
+  });
+
+  grid.querySelectorAll(".action-tag-link").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const systemName = link.dataset.system;
+      const matchedItems = items.filter(
+        (item) => (item.system || "Unknown") === systemName && item.status !== "取消"
+      );
+      openActionItemsModal(`${systemName} Actions`, matchedItems, true);
+    });
+  });
+}
+
+function renderThirdPartyOverview() {
+  const overview = document.getElementById("third-party-overview");
+  const grid = document.getElementById("third-party-card-grid");
+  if (!overview || !grid) {
+    return;
+  }
+
+  const payload = window.THIRD_PARTY_SUMMARY || {};
+  const rows = payload.rows || [];
+  const totalRow = rows.find((row) => String(row.A).trim().toLowerCase() === "total");
+  const platforms = rows.filter((row) => String(row.A).trim().toLowerCase() !== "total");
+
+  overview.innerHTML = "";
+  grid.innerHTML = "";
+
+  if (!rows.length) {
+    overview.innerHTML = `
+      <article class="overview-panel">
+        <strong>No 3rd-party platform data</strong>
+        <p>The workbook sheet did not return any platform records.</p>
+      </article>
+    `;
+    return;
+  }
+
+  if (totalRow) {
+    overview.innerHTML = `
+      <article class="third-party-total-card">
+        <span class="meta-label">Platform Footprint</span>
+        <div class="third-party-total-grid">
+          <div>
+            <span class="meta-label">Platforms</span>
+            <strong>${platforms.length}</strong>
+          </div>
+          <div>
+            <span class="meta-label">Customers</span>
+            <strong>${Number(totalRow.B || 0).toLocaleString("en-US")}</strong>
+          </div>
+          <div>
+            <span class="meta-label">Transactions</span>
+            <strong>${Number(totalRow.C || 0).toLocaleString("en-US")}</strong>
+          </div>
+          <div>
+            <span class="meta-label">Revenue</span>
+            <strong>${formatCompactCurrency(totalRow.D)}</strong>
+          </div>
+          <div>
+            <span class="meta-label">FTE</span>
+            <strong>${Number(totalRow.E || 0).toFixed(1)}</strong>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  platforms
+    .sort((a, b) => toNumeric(b.D) - toNumeric(a.D))
+    .forEach((row) => {
+      grid.insertAdjacentHTML(
+        "beforeend",
+        `
+          <article class="third-party-card">
+            <div class="third-party-card-head">
+              <h3>${row.A || "-"}</h3>
+              <span class="action-tag">${Number(row.E || 0).toFixed(1)} FTE</span>
+            </div>
+            <div class="third-party-card-grid-inner">
+              <div>
+                <span class="meta-label">Customers</span>
+                <strong>${Number(row.B || 0).toLocaleString("en-US")}</strong>
+              </div>
+              <div>
+                <span class="meta-label">Transactions</span>
+                <strong>${Number(row.C || 0).toLocaleString("en-US")}</strong>
+              </div>
+              <div>
+                <span class="meta-label">Revenue</span>
+                <strong>${formatRevenueValue(row.D)}</strong>
+              </div>
+              <div>
+                <span class="meta-label">One-time Cost</span>
+                <strong>${formatCostValue(row.F)}</strong>
+              </div>
+              <div>
+                <span class="meta-label">Ops Cost</span>
+                <strong>${formatCostValue(row.G)}</strong>
+              </div>
+            </div>
+          </article>
+        `
+      );
+    });
+}
+
 function openActionModal(step) {
   const items = (window.ACTION_SUMMARY?.items || []).filter((item) => item.step === step);
   openActionItemsModal(`${step} Linked Actions`, items, true);
@@ -993,6 +1192,8 @@ function renderRiskSection(targetId, items) {
 
 function renderDashboard() {
   renderBusinessStatus(dashboardData.businessStatus);
+  renderSystemOpportunityView();
+  renderThirdPartyOverview();
   renderProcessMap();
   renderActionCards();
 }

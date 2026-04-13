@@ -1,6 +1,6 @@
 {
-  "sourceFile": "C:\\Users\\Sky.Lu\\OneDrive - Thermo Fisher Scientific\\Desktop\\Discussion Summary.xlsx",
-  "syncedAt": "2026-04-10T09:04:07",
+  "sourceFile": "C:\\Users\\Sky.Lu\\Thermo Fisher Scientific\\Accounting Productivity Project - Accounting Productivity Project\\Discussion Summary.xlsx",
+  "syncedAt": "2026-04-13T10:13:30",
   "items": [
     {
       "system": "VAT",
@@ -32,7 +32,7 @@
       "remark": "1. 需要评估客户需求的必要性和频率\n2. 票一通系统支持此功能\n3. 还要考虑匠领系统的变更",
       "fte": "0.02",
       "cost": "100000",
-      "status": "待审批",
+      "status": "取消",
       "type": "CR",
       "step": "02 开票与其他支持材料交付",
       "i": "特殊开票",
@@ -709,6 +709,30 @@
       "step": "04 催收与承诺管理",
       "i": "高频客户跟进",
       "processStep": "高频客户跟进"
+    },
+    {
+      "system": "New",
+      "changePoint": "匹配发票和客户结算单",
+      "remark": "需要将发票项目名称依次编号，再根据物料号，数量，价格和结算单的货物进行匹配并标注上对应的发票项目编号",
+      "fte": "0.01",
+      "cost": "0",
+      "status": "待审批",
+      "type": "AI",
+      "step": "02 开票与其他支持材料交付",
+      "i": "特殊开票",
+      "processStep": "特殊开票"
+    },
+    {
+      "system": "New",
+      "changePoint": "匹配发票和客户PO",
+      "remark": "将发票上的项目名称和数量提取后再到对应的PO中进行标注",
+      "fte": "0.01",
+      "cost": "0",
+      "status": "待审批",
+      "type": "AI",
+      "step": "02 开票与其他支持材料交付",
+      "i": "特殊开票",
+      "processStep": "特殊开票"
     }
   ]
 }

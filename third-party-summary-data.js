@@ -1,6 +1,6 @@
 window.THIRD_PARTY_SUMMARY = {
-  "sourceFile": "C:\\Users\\Sky.Lu\\OneDrive - Thermo Fisher Scientific\\Desktop\\Discussion Summary.xlsx",
-  "syncedAt": "2026-04-10T09:04:07",
+  "sourceFile": "C:\\Users\\Sky.Lu\\Thermo Fisher Scientific\\Accounting Productivity Project - Accounting Productivity Project\\Discussion Summary.xlsx",
+  "syncedAt": "2026-04-13T10:13:30",
   "header": {
     "A": "三方平台",
     "B": " Customer",

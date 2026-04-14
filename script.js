@@ -319,6 +319,24 @@ function openActionItemsModal(titleText, items, includeStep = false) {
   modal.hidden = false;
 }
 
+function openNotionSyncModal() {
+  const modal = document.getElementById("notion-sync-modal");
+  if (modal) {
+    modal.hidden = false;
+  }
+}
+
+function copyNotionSyncCommand() {
+  const command = document.getElementById("notion-sync-command")?.textContent?.trim();
+  if (!command) {
+    return;
+  }
+
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(command).catch(() => {});
+  }
+}
+
 function renderProcessMap() {
   const container = document.getElementById("process-map");
   const thresholdInput = document.getElementById("process-threshold-input");
@@ -1224,6 +1242,7 @@ function exportData() {
 function bindActions() {
   const modal = document.getElementById("action-modal");
   const serviceModal = document.getElementById("service-modal");
+  const notionSyncModal = document.getElementById("notion-sync-modal");
   document.getElementById("modal-close").addEventListener("click", () => {
     modal.hidden = true;
   });
@@ -1240,6 +1259,23 @@ function bindActions() {
       serviceModal.hidden = true;
     }
   });
+
+  const notionReloadButton = document.getElementById("notion-reload-button");
+  if (notionReloadButton && notionSyncModal) {
+    notionReloadButton.addEventListener("click", openNotionSyncModal);
+    document.getElementById("notion-sync-close").addEventListener("click", () => {
+      notionSyncModal.hidden = true;
+    });
+    notionSyncModal.addEventListener("click", (event) => {
+      if (event.target === notionSyncModal) {
+        notionSyncModal.hidden = true;
+      }
+    });
+    document.getElementById("notion-copy-command").addEventListener("click", copyNotionSyncCommand);
+    document.getElementById("notion-refresh-page").addEventListener("click", () => {
+      window.location.reload();
+    });
+  }
 }
 
 function initDashboard(data) {

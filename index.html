@@ -250,6 +250,9 @@
                 </select>
               </div>
             </div>
+            <div class="toolbar-actions">
+              <button type="button" class="chip-button chip-button-accent" id="notion-reload-button">Reload from Notion</button>
+            </div>
           </div>
 
             <div class="section-head">
@@ -285,6 +288,30 @@
         </div>
         <div class="chart-card">
           <canvas id="service-chart" aria-label="Legal entity distribution chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="notion-sync-modal" hidden>
+      <div class="modal-panel notion-sync-panel">
+        <div class="section-head modal-head">
+          <h2>Reload from Notion</h2>
+          <button type="button" class="chip-button" id="notion-sync-close">Close</button>
+        </div>
+        <div class="notion-sync-stack">
+          <article class="overview-panel">
+            <strong>Sync current action data from Notion into this dashboard.</strong>
+            <p>Because this is a local static page, the browser cannot run the Notion sync directly. Run the command below in PowerShell, then click refresh.</p>
+          </article>
+          <div class="notion-sync-command-wrap">
+            <span class="toolbar-label">PowerShell command</span>
+            <pre class="notion-sync-command" id="notion-sync-command">$env:NOTION_ACCESS_TOKEN="YOUR_NOTION_TOKEN"
+powershell -ExecutionPolicy Bypass -File "C:\Users\Sky.Lu\Project\Project\Collection\sync-notion-actions.ps1" -Token $env:NOTION_ACCESS_TOKEN</pre>
+            <div class="notion-sync-actions">
+              <button type="button" class="chip-button" id="notion-copy-command">Copy Command</button>
+              <button type="button" class="chip-button chip-button-accent" id="notion-refresh-page">Refresh Page</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-{
+window.DISCUSSION_SUMMARY = {
   "sourceFile": "C:\\Users\\Sky.Lu\\Thermo Fisher Scientific\\Accounting Productivity Project - Accounting Productivity Project\\Discussion Summary.xlsx",
   "syncedAt": "2026-04-14T16:36:13",
   "groups": [
@@ -813,4 +813,4 @@
       ]
     }
   ]
-}
+};
